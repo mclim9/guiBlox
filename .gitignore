@@ -1,0 +1,24 @@
+### Build directories
+/dist/
+/build/
+/*.egg-info/
+/rssd/Unity/build/
+/rssd/Unity/dist/
+/rssd/Unity/fixtures/
+
+### IQ Waveform/Capture
+*.iqw
+*.wv
+*.xml
+
+### Administrative
+*.pyc
+*.lnk
+
+### Data files
+*.csv
+*.xls
+*.xlsx
+*.pdf
+*.ppt
+*.pptx
