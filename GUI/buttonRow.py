@@ -6,16 +6,18 @@ import sys
 class buttonRow:
     def __init__(self, master, iNum):
         self.master = master
-        self.frame = tk.Frame(self.master)
+        self.btnWidth = 10
+        self.frame = tk.Frame(self.master, bg='black',padx=3, pady=3)
         for i in range(iNum):
-            setattr(self, f'button{i}', tk.Button(self.frame, text=f'Button{i}', width=15, command=self.new_window))
+            setattr(self,f'button{i}', tk.Button(self.frame, text=f'Button{i}', width=self.btnWidth, command=self.new_window))
             getattr(self,f'button{i}').config(bg=master.clr['appBg'],fg=master.clr['appFg'])
             getattr(self,f'button{i}').grid(row=0,column=i)
         if 1:   #Quit Button
-            setattr(self, f'button{i+1}', tk.Button(self.frame, text=f'Quit', width=15, command=self.GUI_quit))
+            setattr(self,f'button{i+1}', tk.Button(self.frame, text=f'Quit', width=self.btnWidth, command=self.GUI_quit))
             getattr(self,f'button{i+1}').config(bg='red2',fg=master.clr['appFg'])
-            getattr(self,f'button{i+1}').grid(row=0,column=i+1)
-        self.frame.grid()
+            getattr(self,f'button{i+1}').bind("<Escape>",self.GUI_quit)
+            getattr(self,f'button{i+1}').grid(row=0,column=i+1,sticky="e")
+        self.frame.grid(row = 0, sticky = "nsew")
 
     def GUI_quit(self):
         self.master.quit()
@@ -30,7 +32,7 @@ class Popup:
     def __init__(self, master):
         self.master = master
         self.frame = tk.Frame(self.master)
-        self.quitButton = tk.Button(self.frame, text = 'Quit', width = 25, command = self.close_windows)
+        self.quitButton = tk.Button(self.frame, text = 'Quit', width = 15, command = self.close_windows)
         self.quitButton.grid()
         self.frame.grid()
     def close_windows(self):
@@ -38,5 +40,6 @@ class Popup:
 
 if __name__ == '__main__':
     root = theme().addColor()
-    app = buttonRow(root,6)                     #pylint: disable=unused-variable
+    app = buttonRow(root,2)                     #pylint: disable=unused-variable
+    app.frame.config(width=300, height=50)
     root.mainloop()
