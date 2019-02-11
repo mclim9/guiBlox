@@ -15,17 +15,16 @@ class buttonRow:
             getattr(self,f'button{i}').grid(row=0,column=i)
             getattr(self,'frame').grid_columnconfigure(i, weight=1)
         if 1:   #Quit Button
-            setattr(self,f'button{i+1}', tk.Button(self.frame, text=f'Quit', width=self.btnWidth, command=self.GUI_quit))
-            getattr(self,f'button{i+1}').config(bg='red2',fg=master.clr['appFg'])
-            getattr(self,f'button{i+1}').bind("<Escape>",self.GUI_quit)
-            getattr(self,f'button{i+1}').grid(row=0,column=i+1)
-            getattr(self,'frame').grid_columnconfigure(i+1, weight=1)
+            setattr(self,f'button{iNum}', tk.Button(self.frame, text=f'Quit', width=self.btnWidth, command=self.GUI_quit))
+            getattr(self,f'button{iNum}').config(bg='red2',fg=master.clr['appFg'])
+            getattr(self,f'button{iNum}').bind("<Escape>",self.GUI_quit)
+            getattr(self,f'button{iNum}').grid(row=0,column=iNum)
+            getattr(self,'frame').grid_columnconfigure(iNum, weight=1)
         self.frame.grid(row = 0, sticky = "nsew")
 
     def GUI_quit(self):
         self.master.quit()
         self.master.destroy()
-
 
     def new_window(self):
         self.newWindow = tk.Toplevel(self.master)
