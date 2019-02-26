@@ -14,6 +14,7 @@ class listWindow:
 
         self.listWindow.grid(row=0,column=0,sticky=(Tk.E))
         self.scrlWindow.grid(column=1,row=0,sticky=(Tk.W,Tk.N,Tk.S))
+        self.listWindow.config(font='Courier 10 bold')
 
         self.frame.grid()
 
