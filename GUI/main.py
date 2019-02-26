@@ -6,10 +6,19 @@
 #####################################################################
 ### User Inputs
 #####################################################################
-entryArry = ['SMW IP','FSW IP','Freq Start','Freq Stop','Freq Step']
-buttnArry = {'foo':'testprint1(root)', \
-             'bar':'testprint2(root)', \
-             'baz':'testprint3(root)'}
+entryDict = {} 
+entryDict['SMW IP']     = '192.168.1.114'
+entryDict['FSW IP']     = '192.168.1.114'
+entryDict['Freq Start'] = '24e9'
+entryDict['Freq Stop']  = '39e9'
+entryDict['Freq Step']  = '500e6'
+
+if 0:
+    buttnDict = {}
+    buttnDict['foo'] = lambda: testprint1(root) #pylint: disable=E0602
+    buttnDict['bar'] = lambda: testprint2(root) #pylint: disable=E0602
+    buttnDict['baz'] = lambda: testprint3(root) #pylint: disable=E0602
+
 #####################################################################
 ### OOGUI Import 
 #####################################################################
@@ -22,7 +31,11 @@ from listWindow import listWindow
 ### Function Definition
 #####################################################################
 def testprint1(root):
-    print(f'asdf-{root.entryCol.entry0.get()}')
+    #print(f'asdf-{root.entryCol.entry0.get()}')
+    #root.bottWind.clear()
+    #root.bottWind.wwrite('asdf')
+    root.bottWind.hwrite('asdfadsf')
+    pass
 
 def testprint2(root):
     root.bottWind.clear()
@@ -38,7 +51,7 @@ def main():
     root.title('GUI Example')
 
     ### Create Sections
-    root.entryCol = entryCol(root, entryArry)
+    root.entryCol = entryCol(root, entryDict)
     root.toppWind = listWindow(root)
     root.bottWind = listWindow(root)
     root.bottWind.stdOut()                                  #Stdout --> window
@@ -48,12 +61,11 @@ def main():
     root.entryCol.frame.config(width=100)
     root.toppWind.listWindow.config(height=10,width=40)
     root.bottWind.listWindow.config(height= 5,width=66)
-#    for i,key in enumerate(buttnArry):
-#        getattr(root.buttnRow,f'button{i}').config(text=f'{key}', command=f'lambda: {buttnArry[key]}')
-#    root.entryCol.save()
-    root.buttnRow.button0.config(text='foo'  ,command=lambda: testprint1(root))
-    root.buttnRow.button1.config(text='clear',command=lambda: testprint2(root))
-    root.buttnRow.button2.config(text='baz'  ,command=lambda: testprint3(root))
+#    for i,key in enumerate(buttnDict):
+#        getattr(root.buttnRow,f'button{i}').config(text=f'{key}', command=lambda: buttnDict[key]())
+    root.buttnRow.button0.config(text='foo'  ,command=lambda: testprint1(root))     #pylint: disable=E1101
+    root.buttnRow.button1.config(text='clear',command=lambda: testprint2(root))     #pylint: disable=E1101
+    root.buttnRow.button2.config(text='baz'  ,command=lambda: testprint3(root))     #pylint: disable=E1101
 
     ### Grid Sections
     root.grid_rowconfigure(2, weight=1)
