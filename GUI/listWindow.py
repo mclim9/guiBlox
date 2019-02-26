@@ -1,6 +1,7 @@
-from initGui    import theme
-from tkinter    import ttk
-import tkinter  as Tk
+from initGui                import theme
+from tkinter                import ttk
+import tkinter.filedialog   as     tkFileDialog
+import tkinter              as     Tk
 import sys
 END = Tk.END
 
@@ -15,16 +16,32 @@ class listWindow:
         self.scrlWindow.grid(column=1,row=0,sticky=(Tk.W,Tk.N,Tk.S))
 
         self.frame.grid()
-    
+
+    def add_Files(self):
+        self.listWindow.delete(0,END)
+        filez = tkFileDialog.askopenfilenames()
+        fileList = list(filez)
+        for i in fileList:
+            self.listWindow.insert(END,i)
+        self.listWindow.see(END)
+
     def stdOut(self):
         sys.stdout = StdoutRedirector(self.listWindow)
 
     def clear(self):
         self.listWindow.delete(0.0,END)
 
-    def wwrite(self,inStr):
+    def writeN(self,inStr):
         self.listWindow.insert(END,inStr+'\n')
         self.listWindow.see(END)
+        self.master.update()
+    
+    def writeH(self,inStr):
+        self.listWindow.insert(END,inStr+'\n')
+        self.listWindow.see(END)
+        indexx = int(self.listWindow.index(Tk.INSERT).split('.')[0]) - 1
+        self.listWindow.tag_add("here", f'{indexx}.0', f'{indexx}.40')
+        self.listWindow.tag_config("here", background="green2", foreground="black")
         self.master.update()
 
 class StdoutRedirector(object):
@@ -39,5 +56,8 @@ if __name__ == '__main__':
     root = theme().addColor()
     app = listWindow(root)                     #pylint: disable=unused-variable
     app.stdOut()
-    print(1234)
+    for i in range(3):
+        print(2355345)
+        app.writeH('asdfasdf')
+        print(1234)
     root.mainloop()
