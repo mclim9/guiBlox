@@ -16,6 +16,17 @@ class entryCol:
             getattr(self,'frame').grid_rowconfigure(i, weight=1)
         self.frame.grid(column=1,sticky="nsew")
 #        self.frame.grid_columnconfigure(1, weight=1)
+
+    def chg2Enum(self,sName, vals):
+        setattr(self, f'{sName}_enum', tk.StringVar(self.frame))
+        vEnum = getattr(self, f'{sName}_enum')
+        foo = getattr(self, f'{sName}').grid_info()
+        getattr(self, f'{sName}').grid_forget()
+        getattr(self, f'{sName}').destroy()
+        setattr(self, f'{sName}', tk.OptionMenu(self.frame, vEnum, *vals))
+        getattr(self, f'{sName}').config(width=8, bg=self.master.clr['appBg'], fg=self.master.clr['appFg'])
+        getattr(self, f'{sName}').grid(row=foo['row'], column=foo['column'])
+
     def save(self):
         outDict = {}
         childList = self.frame.winfo_children()
@@ -32,7 +43,7 @@ if __name__ == '__main__':
     dictIn['FreqStop']      = '39e9'
     
     app = entryCol(root,dictIn)                     #pylint: disable=unused-variable
-    app.frame.config(width=100)
-    app.frame.grid(row=0,column=0,sticky="ns")
+    app.frame.config(width=100, height=100)
+    app.frame.grid(row=0,column=0,sticky="nsew")
     asdf = app.save()
     root.mainloop()
