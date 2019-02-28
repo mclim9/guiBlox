@@ -12,10 +12,9 @@ class listWindow:
         self.listWindow = Tk.Text(self.frame,bg=master.clr['txtBg'], fg=master.clr['txtFg'])
         self.scrlWindow = ttk.Scrollbar(self.frame, orient=Tk.VERTICAL,command=self.listWindow.yview)  #Create scrollbar
 
-        self.listWindow.grid(row=0,column=0,sticky=(Tk.E))
-        self.scrlWindow.grid(column=1,row=0,sticky=(Tk.W,Tk.N,Tk.S))
-        self.listWindow.config(font='Courier 10 bold')
-
+        self.listWindow.grid(row=0,column=0,sticky='nsew')
+        self.scrlWindow.grid(row=0,column=1,sticky='nse')
+        #self.listWindow.config(font='Courier 10 bold')
         self.frame.grid()
 
     def add_Files(self):
@@ -52,6 +51,9 @@ class StdoutRedirector(object):
     '''A class for redirecting stdout to this Text widget.'''
     def write(self,str):
         self.text_area.insert("end", str)
+    
+    def flush(self):
+        sys.stdout = sys.__stdout__         #Send Stdout back to terminal
 
 if __name__ == '__main__':
     root = theme().addColor()
