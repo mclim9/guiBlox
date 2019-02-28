@@ -50,17 +50,6 @@ entryDict['RB Offset']     = '0'
 entryDict['Modulation']    = 'QPSK'
 entryCol = entryCol(GUI, entryDict)
 
-########################################################################
-### GUI Functions
-########################################################################
-class GUIData(object):
-   def __init__(self):
-      self.List1     = ['- Utility does not validate settings against 3GPP 5G',
-                        '- Click *IDN? to validate IP Addresses',
-                        '- Frequency & SMW Power labels are clickable',
-                        '']
-
-
 entryCol.chg2Enum('entry4', ['UL','DL'])
 entryCol.chg2Enum('entry5', ["LOW", "MIDD", "HIGH"])
 entryCol.chg2Enum('entry6', ["20","50","100","200","400"])
@@ -73,12 +62,21 @@ entryCol.entry6_enum.set("100")     # default value
 entryCol.entry7_enum.set("60")      # default value
 entryCol.entry10_enum.set("QPSK")    # default value
 
+########################################################################
+### GUI Functions
+########################################################################
+class GUIData(object):
+   def __init__(self):
+      self.List1     = ['- Utility does not validate settings against 3GPP 5G',
+                        '- Click *IDN? to validate IP Addresses',
+                        '- Frequency & SMW Power labels are clickable',
+                        '']
 
 def btn1():
    ### *IDN Query ###
    NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())
-   botWind.writeN(NR5G.SMW.query('*IDN?'))
-   botWind.writeN(NR5G.FSW.query('*IDN?'))
+   print(NR5G.SMW.query('*IDN?'))
+   print(NR5G.FSW.query('*IDN?'))
    NR5G.jav_Close()
    
 def btn2():
@@ -115,13 +113,13 @@ def btn4():
    ### Read values from GUI
    NR5G.Freq        = float(entryCol.entry2.get())
    NR5G.SWM_Out     = float(entryCol.entry3.get())
-   NR5G.NR_Dir      = Enum10.get()
-   NR5G.NR_Deploy   = Enum11.get()
-   NR5G.NR_ChBW     = int(Enum12.get())
-   NR5G.NR_SubSp    = int(Enum13.get())
+   NR5G.NR_Dir      = entryCol.entry4_enum.get()
+   NR5G.NR_Deploy   = entryCol.entry5_enum.get()
+   NR5G.NR_ChBW     = int(entryCol.entry6_enum.get())
+   NR5G.NR_SubSp    = int(entryCol.entry7_enum.get())
    NR5G.NR_RB       = int(entryCol.entry8.get())
    NR5G.NR_RBO      = int(entryCol.entry9.get())
-   NR5G.NR_Mod      = Enum16.get()
+   NR5G.NR_Mod      = entryCol.entry10_enum.get()
    
    ### Do some work
    botWind.writeN("SMW Creating Waveform.")
