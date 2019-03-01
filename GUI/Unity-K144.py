@@ -14,7 +14,6 @@ BotWindWid  = ColxWid + 25
 ########################################################################
 from datetime                 import datetime
 import tkinter             as     Tk
-from   tkinter             import ttk
 import tkinter.filedialog  as     tkFileDialog
 from buttonRow  import buttonRow
 from initGui    import theme
@@ -103,7 +102,7 @@ def btn3():
    ### Get EVM ###
    NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())
    NR5G.FSW.Set_InitImm()
-   topWind.writeN('EVM:' + str(NR5G.FSW.Get_5GNR_EVM()))
+   topWind.writeN(f'EVM: {NR5G.FSW.Get_5GNR_EVM():.4f}')
    NR5G.FSW.jav_Close()
    
 def btn4():
@@ -228,7 +227,6 @@ def menu_Open():
    
 def menu_Save():
    dataSave()
-
 
 ########################################################################       
 ### Main Code
