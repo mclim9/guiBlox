@@ -13,9 +13,9 @@ class listWindow:
         self.scrlWindow = ttk.Scrollbar(self.frame, orient=Tk.VERTICAL,command=self.listWindow.yview)  #Create scrollbar
 
         self.listWindow.grid(row=0,column=0,sticky='nsew')
-        self.scrlWindow.grid(row=0,column=1,sticky='nse')
-        #self.listWindow.config(font='Courier 10 bold')
-        self.frame.grid()
+        self.scrlWindow.grid(row=0,column=1,sticky='nsew')
+        self.listWindow.config(font='Courier 11 bold')
+        self.frame.grid(sticky='nsew')
 
     def add_Files(self):
         self.listWindow.delete(0,END)
