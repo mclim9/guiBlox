@@ -7,7 +7,7 @@ from __future__ import division     #int div to float
 # User Input Settings
 ########################################################################
 ColxWid     = 60 -4
-BotWindWid  = ColxWid + 25
+BotWindWid  = ColxWid + 15
 
 ########################################################################       
 ### Code Import
@@ -59,7 +59,7 @@ entryCol.entry4_enum.set("UL")      # default value
 entryCol.entry5_enum.set("HIGH")    # default value
 entryCol.entry6_enum.set("100")     # default value
 entryCol.entry7_enum.set("60")      # default value
-entryCol.entry10_enum.set("QPSK")    # default value
+entryCol.entry10_enum.set("QPSK")   # default value
 
 ########################################################################
 ### GUI Functions
@@ -272,8 +272,8 @@ botWind.writeH("Output Window")
 ### Draw Widgets w/ Grid 
 ########################################################################
 entryCol.frame.grid(row=0,column=0,sticky="nsew")
-topWind.frame.grid(row=0,column=1,sticky='ew')
-botWind.frame.grid(row=1,column=0,columnspan=2,sticky='nsew')
+topWind.frame.grid(row=0,column=1,sticky='e')
+botWind.frame.grid(row=1,column=0,columnspan=2,sticky='e')
 buttnRow.frame.grid(row=4,column=0,columnspan=2,sticky="nsew")
 
 ########################################################################
