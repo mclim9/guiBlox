@@ -1,4 +1,4 @@
-from initGui                import theme
+from GUIBlox                import theme
 from tkinter                import ttk
 import tkinter.filedialog   as     tkFileDialog
 import tkinter              as     Tk
@@ -56,7 +56,7 @@ class StdoutRedirector(object):
         sys.stdout = sys.__stdout__         #Send Stdout back to terminal
 
 if __name__ == '__main__':
-    root = theme().addColor()
+    root = theme.theme().addColor()
     app = listWindow(root)                     #pylint: disable=unused-variable
     app.stdOut()
     for i in range(3):

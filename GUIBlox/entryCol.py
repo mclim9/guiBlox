@@ -1,5 +1,5 @@
-import tkinter  as tk
-from initGui    import theme
+import tkinter      as tk
+from GUIBlox        import theme
 import sys
 
 class entryCol:
@@ -36,7 +36,7 @@ class entryCol:
         return outDict
 
 if __name__ == '__main__':
-    root = theme().addColor()
+    root = theme.theme().addColor()
     root.geometry(f'{300}x{300}')
     dictIn = {} 
     dictIn['FreqStart']     = '24e9'

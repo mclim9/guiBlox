@@ -2,11 +2,12 @@ import tkinter as tk
 
 class theme():
     def __init__(self):
-        self = tk.Tk()
+        # self = tk.Tk()
         self.btn = {}
         self.btn['width'] = 10
         self.btn['height'] = 10
-        
+        pass
+
     def addColor(self):
         self = tk.Tk()
         self.clr = {}

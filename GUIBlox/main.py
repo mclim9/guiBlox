@@ -22,10 +22,10 @@ if 0:
 #####################################################################
 ### OOGUI Import 
 #####################################################################
-from buttonRow  import buttonRow
-from entryCol   import entryCol
-from initGui    import theme
-from listWindow import listWindow
+from GUIBlox.buttonRow  import buttonRow
+from GUIBlox.entryCol   import entryCol
+from GUIBlox.theme    import theme
+from GUIBlox.listWindow import listWindow
 
 #####################################################################
 ### Function Definition
