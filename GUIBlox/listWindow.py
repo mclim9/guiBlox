@@ -51,6 +51,8 @@ class StdoutRedirector(object):
     '''A class for redirecting stdout to this Text widget.'''
     def write(self,str):
         self.text_area.insert("end", str)
+        self.text_area.see(END)
+        self.text_area.master.update()
     
     def flush(self):
         sys.stdout = sys.__stdout__         #Send Stdout back to terminal
@@ -59,7 +61,7 @@ if __name__ == '__main__':
     root = theme.theme().addColor()
     app = listWindow(root)                     #pylint: disable=unused-variable
     app.stdOut()
-    for i in range(3):
+    for i in range(10):
         print(2355345)
         app.writeH('asdfasdf')
         print(1234)
