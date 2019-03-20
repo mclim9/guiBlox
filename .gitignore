@@ -2,9 +2,9 @@
 /dist/
 /build/
 /*.egg-info/
-/rssd/Unity/build/
-/rssd/Unity/dist/
-/rssd/Unity/fixtures/
+/projects/build/
+/projects/dist/
+/projects/fixtures/
 
 ### IQ Waveform/Capture
 *.iqw
@@ -14,6 +14,8 @@
 ### Administrative
 *.pyc
 *.lnk
+*.spec
+*.ico
 
 ### Data files
 *.csv

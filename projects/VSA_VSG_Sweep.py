@@ -11,9 +11,10 @@ entryDict['SMW IP']     = '192.168.1.114'
 entryDict['FSW IP']     = '192.168.1.109'
 entryDict['Freq Start'] = '24e9'
 entryDict['Freq Stop']  = '39e9'
-entryDict['Freq Step']  = '10e6'
+entryDict['Freq Step']  = '500e6'
 entryDict['FSW Span']   = '10e6'
 entryDict['SMW Pwr']    = '0'
+entryDict['Filename']   = 'Output'
 
 #####################################################################
 ### OOGUI Import 
@@ -23,50 +24,64 @@ from GUIBlox.entryCol   import entryCol
 from GUIBlox.theme      import theme
 from GUIBlox.listWindow import listWindow
 
+### Code specific imports
 from rssd.VST_Common    import VST           #pylint:disable=E0611,E0401
+from rssd.FileIO        import FileIO
+import time
+import os
 
 #####################################################################
 ### Function Definition
 #####################################################################
 def IDN(root):
-    VST = VST.jav_Open(root.entryCol.entry0.get(),root.entryCol.entry1.get())  #pylint:disable=E1101
-    print(VST.SMW.query('*IDN?'))
-    print(VST.FSW.query('*IDN?'))
-    VST.jav_Close()
+    Instr = VST().jav_Open(root.entryCol.entry0.get(),root.entryCol.entry1.get())  #pylint:disable=E1101
+    print(Instr.SMW.query('*IDN?'))
+    print(Instr.FSW.query('*IDN?'))
+    Instr.jav_Close()
     
 def run(root):
-    VST = VST().jav_Open(root.entryCol.entry0.get(),root.entryCol.entry1.get())  #pylint:disable=E1101
-    OFileCSV = FileIO().makeFile(__file__+'csv')
-    OFileXML = FileIO().makeFile(__file__+'xml')
+    Instr = VST().jav_Open(root.entryCol.entry0.get(),root.entryCol.entry1.get())  #pylint:disable=E1101
+    OFileCSV = FileIO().makeFile(root.entryCol.entry7.get()+'csv')
+    OFileXML = FileIO().makeFile(root.entryCol.entry7.get()+'xml')
+
+    root.toppWind.writeN('Sweep Begin')
+    root.toppWind.writeN(f'-{Instr.SMW.Model} {Instr.SMW.Device} {Instr.SMW.Version} ')
+    root.toppWind.writeN(f'-{Instr.FSW.Model} {Instr.FSW.Device} {Instr.FSW.Version} ')
 
     ##########################################################
     ### Instrument Settings
     ##########################################################
-    FreqStart = root.entryCol.entry2.get()
-    FreqStop  = root.entryCol.entry3.get()
-    FreqStep  = root.entryCol.entry4.get()
-    fSpan     = root.entryCol.entry5.get()
-    SWM_Out   = root.entryCol.entry6.get()
+    FreqStart = int(float(root.entryCol.entry2.get()))
+    FreqStop  = int(float(root.entryCol.entry3.get()))
+    FreqStep  = int(float(root.entryCol.entry4.get()))
+    fSpan     = float(root.entryCol.entry5.get())
+    SWM_Out   = float(root.entryCol.entry6.get())
 
-    VST.SMW.Set_RFPwr(SWM_Out)                    #Output Power
-    VST.SMW.Set_RFState('ON')                     #Turn RF Output on
-    VST.FSW.Set_SweepCont(0)
-    VST.FSW.Set_Span(fSpan)
+    Instr.SMW.Set_RFPwr(SWM_Out)                    #Output Power
+    Instr.SMW.Set_IQMod('OFF')                      #Modulation Off
+    Instr.SMW.Set_RFState('ON')                     #Turn RF Output on
+    Instr.FSW.Set_Channel("Spectrum")
+    Instr.FSW.Set_SweepCont(0)
+    Instr.FSW.Set_Span(fSpan)
 
     for freq in range(FreqStart,FreqStop,FreqStep):
-        VST.Set_Freq(freq)
+        Instr.Set_Freq(freq)
         time.sleep(0.01)
-        VST.FSW.Set_InitImm()
-        VST.FSW.Set_Mkr_Peak()
-        Mkr = VST.FSW.Get_Mkr_XY()
+        Instr.FSW.Set_InitImm()
+        Instr.FSW.Set_Mkr_Peak()
+        Mkr = Instr.FSW.Get_Mkr_XY()
         OFileCSV.write(f'{freq},{Mkr[0]},{Mkr[1]}')
         OFileXML.write(f'  <Point x="{Mkr[0]}" y="{Mkr[1]}"/>')
-    VST.jav_Close()
+    Instr.jav_Close()
+    root.toppWind.writeN("Sweep Complete")
+
+def openF(root):
+    os.system(f'explorer.exe {os.path.abspath(os.path.dirname(__file__))}')
 
 #####################################################################
 ### GUI Layout
 #####################################################################
-def main(): 
+def main():
     root = theme().addColor()
     root.title('VSG VSA Frequency Sweep')
 
@@ -75,22 +90,23 @@ def main():
     root.toppWind = listWindow(root)
     root.bottWind = listWindow(root)
     root.bottWind.stdOut()                                  #Stdout --> window
-    root.buttnRow = buttonRow(root, 2)                      #pylint: disable=unused-variable
+    root.buttnRow = buttonRow(root, 3)                      #pylint: disable=unused-variable
 
     ### Define Sections
-    root.entryCol.frame.config(width=100)
-    root.toppWind.listWindow.config(height=10,width=40)
+    root.entryCol.frame.config(width=50)
+    root.toppWind.listWindow.config(height=20,width=40)
     root.toppWind.writeH("===Please Click Buttons Below===")
 
-    root.bottWind.listWindow.config(height= 5,width=66)
+    root.bottWind.listWindow.config(height= 7,width=66)
     root.buttnRow.button0.config(text='*IDN?'   ,command=lambda: IDN(root))     #pylint: disable=E1101
     root.buttnRow.button1.config(text='Run'     ,command=lambda: run(root))     #pylint: disable=E1101
+    root.buttnRow.button2.config(text='Folder'  ,command=lambda: openF(root))   #pylint: disable=E1101
 
     ### Grid Sections
     root.grid_rowconfigure(2, weight=1)
     root.entryCol.frame.grid(row=0,column=0,sticky="ns")
     root.toppWind.frame.grid(row=0,column=1,sticky='e')
-    root.bottWind.frame.grid(row=1,column=0,columnspan=2)
+    root.bottWind.frame.grid(row=1,column=0,columnspan=2,sticky='nsew')
     root.buttnRow.frame.grid(row=2,column=0,columnspan=2,sticky="nsew")
     root.mainloop()
 
