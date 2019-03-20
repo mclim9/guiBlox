@@ -12,7 +12,7 @@
 ### Upload to PyPi
 ### python setup.py register #Reserve name in pypi
 ### python setup.py sdist    #Creates tar.gz
-### twine upload rssd-0.1.8.tar.gz 
+### twine upload GUIBlox-2019.03.15.tar.gz 
 ### twine upload dist/* --repository-url=https://test.pypi.org/legacy/
 """
 import os
@@ -21,30 +21,28 @@ from setuptools import setup, find_packages
 with open('README.md') as f:
     long_description = f.read()
 
-setup(name='rssd',
-      version='0.1.11',
-      description='Rohde & Schwarz SCPI Driver',
-      long_description=long_description,
-      long_description_content_type='text/markdown', 
-      classifiers=[
-        'Development Status :: 3 - Alpha',      #3:Alpha 4:Beta 5:Production/Stable
-        'License :: Other/Proprietary License',
-        'Intended Audience :: Developers',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.7',
-        'Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)',
-        'Topic :: System :: Hardware :: Hardware Drivers',
-      ],
-      keywords='Rohde Schwarz FSW SMW SCPI test equipment VSA VGA',
-      url='https://github.com/mclim9/rssd',
-      author='Martin Lim',
-      author_email='martin.lim@rsa.rohde-schwarz.com',
-      license='R&S Terms and Conditions for Royalty-Free Products',
-      packages=find_packages(exclude=['test','proto']),
-      #packages=['rssd'],
-      install_requires=[
-          'pyvisa>=1.9.0',
-      ],
-      test_suite = 'test',
-      include_package_data=True,
-      zip_safe=False)
+setup(name='guiblox',
+    version='2019.03.05',
+    description='GUI Widgets in Frames',
+    long_description=long_description,
+    long_description_content_type='text/markdown', 
+    classifiers=[
+      'Development Status :: 3 - Alpha',      #3:Alpha 4:Beta 5:Production/Stable
+      'License :: Other/Proprietary License',
+      'Intended Audience :: Developers',
+      'Programming Language :: Python :: 3.7',
+      'Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)',
+    ],
+    keywords='Rohde Schwarz FSW SMW SCPI test equipment VSA VGA',
+    url='https://github.com/mclim9/guiblox',
+    author='Martin C Lim',
+    author_email='martin.lim@rsa.rohde-schwarz.com',
+    license='R&S Terms and Conditions for Royalty-Free Products',
+    packages=find_packages(exclude=['test','proto']),
+    install_requires=[      ],
+    test_suite = 'test',
+    include_package_data=True,
+    zip_safe=False)
+
+#if __name__ == "__main__":
+#    os.system("python setup.py sdist")
