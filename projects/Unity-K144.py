@@ -23,7 +23,6 @@ END = Tk.END
 
 #Code specific libraries
 import copy
-from rssd.yaVISA              import jaVisa        #pylint:disable=E0611,E0401
 from rssd.VST_5GNR_K144       import VST           #pylint:disable=E0611,E0401
 
 ########################################################################
@@ -33,7 +32,7 @@ GUI = theme().addColor()                           #Create GUI object
 GUI.title('Rohde&Schwarz FSW SMW 5GNR Utility')                             #GUI Title
 topWind = listWindow(GUI)
 botWind = listWindow(GUI)
-buttnRow = buttonRow(GUI, 5)                      #pylint: disable=unused-variable
+buttnRow = buttonRow(GUI, 6)                      #pylint: disable=unused-variable
 
 entryDict = {} 
 entryDict['SMW IP']        = '192.168.1.114'
@@ -71,6 +70,25 @@ class GUIData(object):
                         '- Frequency & SMW Power labels are clickable',
                         '']
 
+def gui_reader():
+   ### Read values from GUI
+   SMW_IP           = entryCol.entry0.get()                             #pylint:disable=E1101
+   FSW_IP           = entryCol.entry1.get()                             #pylint:disable=E1101
+   
+   ### Set 5GNR Parameters
+   NR5G = VST().jav_Open(SMW_IP,FSW_IP)                                 #pylint:disable=E1101
+   NR5G.Freq        = float(entryCol.entry2.get())                      #pylint:disable=E1101
+   NR5G.SWM_Out     = float(entryCol.entry3.get())                      #pylint:disable=E1101
+   NR5G.NR_Dir      = entryCol.entry4_enum.get()                        #pylint:disable=E1101
+   NR5G.NR_Deploy   = entryCol.entry5_enum.get()                        #pylint:disable=E1101
+   NR5G.NR_ChBW     = int(entryCol.entry6_enum.get())                   #pylint:disable=E1101
+   NR5G.NR_SubSp    = int(entryCol.entry7_enum.get())                   #pylint:disable=E1101
+   NR5G.NR_RB       = int(entryCol.entry8.get())                        #pylint:disable=E1101
+   NR5G.NR_RBO      = int(entryCol.entry9.get())                        #pylint:disable=E1101
+   NR5G.NR_Mod      = entryCol.entry10_enum.get()                       #pylint:disable=E1101
+   NR5G.NR_TF       = 'OFF'
+   return NR5G
+
 def btn1():
    ### *IDN Query ###
    NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())  #pylint:disable=E1101
@@ -90,7 +108,7 @@ def btn2():
    topWind.writeN('--------------------------   --------------------------')
    topWind.writeN(' ')
 
-   NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())  #pylint:disable=E1101
+   NR5G = gui_reader()
    data = NR5G.SMW.Get_5GNR_RBMax()
    topWind.writeN("=== Max RB ===")
    topWind.writeN("Mode: %s %sMHz"%(NR5G.SMW.Get_5GNR_FreqRange(),NR5G.SMW.Get_5GNR_ChannelBW()))
@@ -100,26 +118,13 @@ def btn2():
 
 def btn3():
    ### Get EVM ###
-   NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())   #pylint:disable=E1101
+   NR5G = gui_reader()
    NR5G.FSW.Set_InitImm()
    topWind.writeN(f'EVM: {NR5G.FSW.Get_5GNR_EVM():.4f}')
    NR5G.FSW.jav_Close()
    
 def btn4():
-   ### Set 5GNR Parameters
-   NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())   #pylint:disable=E1101
-   
-   ### Read values from GUI
-   NR5G.Freq        = float(entryCol.entry2.get())                      #pylint:disable=E1101
-   NR5G.SWM_Out     = float(entryCol.entry3.get())                      #pylint:disable=E1101
-   NR5G.NR_Dir      = entryCol.entry4_enum.get()                        #pylint:disable=E1101
-   NR5G.NR_Deploy   = entryCol.entry5_enum.get()                        #pylint:disable=E1101
-   NR5G.NR_ChBW     = int(entryCol.entry6_enum.get())                   #pylint:disable=E1101
-   NR5G.NR_SubSp    = int(entryCol.entry7_enum.get())                   #pylint:disable=E1101
-   NR5G.NR_RB       = int(entryCol.entry8.get())                        #pylint:disable=E1101
-   NR5G.NR_RBO      = int(entryCol.entry9.get())                        #pylint:disable=E1101
-   NR5G.NR_Mod      = entryCol.entry10_enum.get()                       #pylint:disable=E1101
-   NR5G.NR_TF       = 'OFF'
+   NR5G = gui_reader()
 
    ### Do some work
    print("SMW Creating Waveform.")
@@ -130,7 +135,7 @@ def btn4():
    NR5G.jav_Close()
 
 def btn5():
-   NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())   #pylint:disable=E1101
+   NR5G = gui_reader()
 
    ### Read 5GNR Parameters ###
    K144Data = NR5G.Get_5GNR_All() 
@@ -146,35 +151,43 @@ def btn5():
             topWind.writeN("%s\t%s\t%s"%(K144Data[0][i],'<notRead>',K144Data[2][i]))
    NR5G.jav_Close()
 
+def btn6():
+   ## filename: 5GNR_UL_BW_SubCar_Mod
+   NR5G = gui_reader()
+   dir = NR5G.SMW.Get_5GNR_Direction()
+   filename = f'5GNR_{dir}_{NR5G.SMW.Get_5GNR_ChannelBW()}MHz_{NR5G.SMW.Get_5GNR_BWP_SubSpace()}kHz_{NR5G.SMW.Get_5GNR_BWP_Ch_Modulation()}'
+   topWind.writeN(f'Writing: {filename}')
+   NR5G.FSW.Set_5GNR_savesetting(filename)
+   for i in range(10):
+      NR5G.SMW.Set_5GNR_savesetting(filename+str(i))
+   topWind.writeN('Writing: DONE!')
+
 def click3(tkEvent):
    #print(tkEvent)
-   freq = int(entryCol.entry2.get())
-   NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())
-   NR5G.SMW.Set_Freq(freq)
-   NR5G.FSW.Set_Freq(freq)
+   NR5G = gui_reader()
+   NR5G.SMW.Set_Freq(NR5G.Freq)
+   NR5G.FSW.Set_Freq(NR5G.Freq)
    NR5G.jav_Close()
-   botWind.writeN('SMW/FSW Freq: %d Hz'%freq)
+   botWind.writeN('SMW/FSW Freq: %d Hz'%NR5G.Freq)
    
 def click4(tkEvent):
    #print(tkEvent)
-   NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())
-   NR5G.SMW.Set_RFPwr(int(entryCol.entry3.get()))
+   NR5G = gui_reader()
+   NR5G.SMW.Set_RFPwr(int(NR5G.SWM_Out))
    NR5G.jav_Close()
-   botWind.writeN('SMW RMS Pwr : %d dBm'%int(entryCol.entry3.get()))
+   botWind.writeN('SMW RMS Pwr : %d dBm'%int(NR5G.SWM_Out))
 
 def click14(tkEvent):
    #print(tkEvent)
    if 0:
-      NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())
-      NR_RB  = int(entryCol.entry8.get())
-      NR_Dir = entryCol.entry4_enum.get()
+      NR5G = gui_reader()
       if 0:
-         NR5G.SMW.Set_5GNR_Direction(NR_Dir)
-         NR5G.SMW.Set_5GNR_BWP_ResBlock(NR_RB)
-         NR5G.SMW.Set_5GNR_BWP_Ch_ResBlock(NR_RB)
-         NR5G.FSW.Set_5GNR_Direction(NR_Dir)
-         NR5G.FSW.Set_5GNR_BWP_ResBlock(NR_RB)
-         NR5G.FSW.Set_5GNR_BWP_Ch_ResBlock(NR_RB)
+         NR5G.SMW.Set_5GNR_Direction(NR5G.NR_Dir)
+         NR5G.SMW.Set_5GNR_BWP_ResBlock(NR5G.NR_RB)
+         NR5G.SMW.Set_5GNR_BWP_Ch_ResBlock(NR5G.NR_RB)
+         NR5G.FSW.Set_5GNR_Direction(NR5G.NR_Dir)
+         NR5G.FSW.Set_5GNR_BWP_ResBlock(NR5G.NR_RB)
+         NR5G.FSW.Set_5GNR_BWP_Ch_ResBlock(NR5G.NR_RB)
       NR5G.jav_Close()
    botWind.writeN('FSW:Signal Description-->RadioFrame-->BWP Config-->RB')
    botWind.writeN('FSW:Signal Description-->RadioFrame-->PxSCH Config-->RB')
@@ -192,7 +205,7 @@ def dataLoad():
       try:        #Python3
          f = open(__file__ + ".csv","rt")
       except:     #Python2
-         f = open(__file__ + ".csv","rb")         
+         f = open(__file__ + ".csv","rb")
       data = f.read().split(',')
       OutObj.Entry1 = data[0]
       OutObj.Entry2 = data[1]
@@ -255,6 +268,7 @@ buttnRow.button1.config(text='Max RB'  ,command=btn2)     #pylint: disable=E1101
 buttnRow.button2.config(text='Get EVM' ,command=btn3)     #pylint: disable=E1101
 buttnRow.button3.config(text='Set_5GNR',command=btn4)     #pylint: disable=E1101
 buttnRow.button4.config(text='Get_5GNR',command=btn5)     #pylint: disable=E1101
+buttnRow.button5.config(text='Save WV',command=btn6)      #pylint: disable=E1101
 
 ########################################################################
 ### List Boxes
