@@ -4,7 +4,7 @@ from GUIBlox    import theme
 import sys
 
 class buttonRow:
-    def __init__(self, master, iNum):
+    def __init__(self, master, iNum, makequit=1):
         self.master = master
         self.btnWidth = 10
         self.frame = tk.Frame(self.master, bg='black',padx=3, pady=3)
@@ -14,7 +14,7 @@ class buttonRow:
             getattr(self,f'button{i}').config(bg=master.clr['appBg'],fg=master.clr['appFg'])
             getattr(self,f'button{i}').grid(row=0,column=i)
             getattr(self,'frame').grid_columnconfigure(i, weight=1)
-        if 1:   #Quit Button
+        if makequit:   #Quit Button
             setattr(self,f'button{iNum}', tk.Button(self.frame, text=f'Quit', width=self.btnWidth, command=self.GUI_quit))
             getattr(self,f'button{iNum}').config(bg='red2',fg=master.clr['appFg'])
             getattr(self,f'button{iNum}').bind("<Escape>",self.GUI_quit)
