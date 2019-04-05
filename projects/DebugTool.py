@@ -47,30 +47,15 @@ def gui_reader(root):
     RS.Output          = root.bottWind.getstr()
     return RS
 
-def IDN1(tkEvent):
-    instr = jaVisa().jav_Open(root.entryCol1.entry0.get())                          #pylint:disable=E1101
+def IDN(tkEvent):
+    instr = jaVisa().jav_Open(tkEvent.widget.get())                          #pylint:disable=E1101
     instr.jav_Close()
     
-def IDN2(tkEvent):
-    instr = jaVisa().jav_Open(root.entryCol2.entry0.get())                          #pylint:disable=E1101
+def SYSTERR(tkEvent):
+    instr = jaVisa().jav_Open(tkEvent.widget.get())
+    instr.jav_ClrErr()
     instr.jav_Close()
-    
-def IDN3(tkEvent):
-    instr = jaVisa().jav_Open(root.entryCol3.entry0.get())                          #pylint:disable=E1101
-    instr.jav_Close()
-    
-def SYSTERR1(tkEvent):
-    instr = jaVisa().jav_Open(root.entryCol1.entry0.get())                          #pylint:disable=E1101
-    instr.jav_Close()
-    
-def SYSTERR2(tkEvent):
-    instr = jaVisa().jav_Open(root.entryCol2.entry0.get())                          #pylint:disable=E1101
-    instr.jav_Close()
-    
-def SYSTERR3(tkEvent):
-    instr = jaVisa().jav_Open(root.entryCol3.entry0.get())                          #pylint:disable=E1101
-    instr.jav_Close()
-    
+
 def instr1(root):
     RS = gui_reader(root)
     Instr = jaVisa().jav_Open(RS.IP1)
@@ -124,9 +109,9 @@ def main():
     root.entryCol1  = entryCol(root, {'IP1': '192.168.1.114'})
     root.entryCol2  = entryCol(root, {'IP2': '192.168.1.109'})
     root.entryCol3  = entryCol(root, {'IP3': '192.168.1.150'})
-    root.SCPI1      = listWindow(root)
-    root.SCPI2      = listWindow(root)
-    root.SCPI3      = listWindow(root)
+    root.SCPI1      = listWindow(root).writeN('SYST:ERR?')
+    root.SCPI2      = listWindow(root).writeN('SYST:ERR?')
+    root.SCPI3      = listWindow(root).writeN('SYST:ERR?')
 
     root.bottWind   = listWindow(root)
     root.bottWind.stdOut()                              #Stdout --> window
@@ -134,9 +119,13 @@ def main():
     root.bottbtnRow = buttonRow(root, 4)                                            #pylint: disable=unused-variable
 
     ### Define Sections
-    root.entryCol1.label0.bind("<Button-1>",IDN1)                                   #pylint:disable=E1101
-    root.entryCol2.label0.bind("<Button-1>",IDN2)                                   #pylint:disable=E1101
-    root.entryCol3.label0.bind("<Button-1>",IDN3)                                   #pylint:disable=E1101
+    root.entryCol1.entry0.bind("<Double-Button-1>",IDN)                             #pylint: disable=E1101
+    root.entryCol2.entry0.bind("<Double-Button-1>",IDN)                             #pylint: disable=E1101
+    root.entryCol3.entry0.bind("<Double-Button-1>",IDN)                             #pylint: disable=E1101
+    root.entryCol1.entry0.bind("<Button-3>",SYSTERR)                                #pylint: disable=E1101
+    root.entryCol2.entry0.bind("<Button-3>",SYSTERR)                                #pylint: disable=E1101
+    root.entryCol3.entry0.bind("<Button-3>",SYSTERR)                                #pylint: disable=E1101
+
     root.SCPI1.listWindow.config(width=20,height=10)
     root.SCPI2.listWindow.config(width=20,height=10)
     root.SCPI3.listWindow.config(width=20,height=10)
