@@ -41,6 +41,7 @@ class listWindow:
         self.listWindow.insert(END,inStr+'\n')
         self.listWindow.see(END)
         self.master.update()
+        return self
     
     def writeH(self,inStr):
         self.listWindow.insert(END,inStr+'\n')
@@ -49,6 +50,7 @@ class listWindow:
         self.listWindow.tag_add("here", f'{indexx}.0', f'{indexx}.40')
         self.listWindow.tag_config("here", background="green2", foreground="black")
         self.master.update()
+        return self
 
 class StdoutRedirector(object):
     def __init__(self,text_area):
