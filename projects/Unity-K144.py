@@ -14,10 +14,8 @@ BotWindWid  = ColxWid + 15
 from datetime              import datetime
 import tkinter             as     Tk
 import tkinter.filedialog  as     tkFileDialog
-from GUIBlox.buttonRow     import buttonRow
-from GUIBlox.entryCol      import entryCol
-from GUIBlox.theme         import theme
-from GUIBlox.listWindow    import listWindow
+from GUIBlox               import buttonRow, entryCol, theme, listWindow
+
 
 END = Tk.END
 

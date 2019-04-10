@@ -10,13 +10,10 @@
 #####################################################################
 ### OOGUI Import 
 #####################################################################
-from GUIBlox.buttonRow  import buttonRow
-from GUIBlox.entryCol   import entryCol
-from GUIBlox.theme      import theme
-from GUIBlox.listWindow import listWindow
+from GUIBlox                import buttonRow, entryCol, theme, listWindow
 
 ### Code specific imports
-from   rssd.yaVISA_socket import jaVisa
+from   rssd.yaVISA_socket   import jaVisa
 import datetime
 import socket
 import os

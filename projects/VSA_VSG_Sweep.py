@@ -19,10 +19,7 @@ entryDict['Filename']   = 'Output'
 #####################################################################
 ### OOGUI Import 
 #####################################################################
-from GUIBlox.buttonRow  import buttonRow
-from GUIBlox.entryCol   import entryCol
-from GUIBlox.theme      import theme
-from GUIBlox.listWindow import listWindow
+from GUIBlox            import buttonRow, entryCol, theme, listWindow
 
 ### Code specific imports
 from rssd.VST_Common    import VST           #pylint:disable=E0611,E0401

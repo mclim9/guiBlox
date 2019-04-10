@@ -8,6 +8,8 @@
 
 ### IQ Waveform/Capture
 *.iqw
+*.iq
+*.tar
 *.wv
 *.xml
 
