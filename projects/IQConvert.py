@@ -11,15 +11,12 @@
 ### OOGUI Import 
 #####################################################################
 # import GUIBlox
-from GUIBlox            import buttonRow
-from GUIBlox            import entryCol
-from GUIBlox            import theme
-from GUIBlox            import listWindow
+from GUIBlox                import buttonRow, entryCol, theme, listWindow
 
 ### Code specific imports
 import tkinter as tk
 from tkinter.filedialog     import askopenfilename
-from   rssd.yaVISA_socket   import jaVisa
+from   rssd                 import jaVisa
 import time
 import os
 from rssd.iqdata            import IQ
