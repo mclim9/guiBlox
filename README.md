@@ -1,4 +1,4 @@
-# Rohde&Schwarz Python SCPI Driver
+# Object oriented TKINTER WIDGETS
 
 ## Project goals:
 
