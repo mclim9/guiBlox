@@ -15,8 +15,6 @@ from datetime              import datetime
 import tkinter             as     Tk
 import tkinter.filedialog  as     tkFileDialog
 from GUIBlox               import buttonRow, entryCol, theme, listWindow
-
-
 END = Tk.END
 
 #Code specific libraries
@@ -156,7 +154,7 @@ def btn6():
    filename = f'5GNR_{dir}_{NR5G.SMW.Get_5GNR_ChannelBW()}MHz_{NR5G.SMW.Get_5GNR_BWP_SubSpace()}kHz_{NR5G.SMW.Get_5GNR_BWP_Ch_Modulation()}'
    topWind.writeN(f'Writing: {filename}')
    NR5G.FSW.Set_5GNR_savesetting(filename)
-   for i in range(10):
+   for i in range(1):
       NR5G.SMW.Set_5GNR_savesetting(filename+str(i))
    topWind.writeN('Writing: DONE!')
 
@@ -191,12 +189,15 @@ def click14(tkEvent):
    botWind.writeN('FSW:Signal Description-->RadioFrame-->PxSCH Config-->RB')
    botWind.writeN('SMW:User/BWP-->UL BWP-->RB')
    botWind.writeN('SMW:Scheduling-->PxSCH-->RB')
-   
+
 def click15(tkEvent):
    botWind.writeN('FSW:Signal Description-->RadioFrame-->BWP Config-->RB Offset')
    botWind.writeN('SMW:User/BWP-->UL BWP-->RB Offset')
    pass
-   
+
+def clearTopWind(tkEvent):
+   topWind.clear()
+
 def dataLoad():
    OutObj = GUIData()
    try:
@@ -253,6 +254,7 @@ try:
    GUI.iconbitmap('Unity.ico')
 except:
    pass
+
 ########################################################################
 ### Define GUI Widgets
 ########################################################################
@@ -272,7 +274,7 @@ buttnRow.button5.config(text='Save WV',command=btn6)      #pylint: disable=E1101
 ### List Boxes
 ########################################################################
 topWind.listWindow.config(width=ColxWid, height=20, tabs=('5c', '7c', '9c'))
-topWind.listWindow.bind("<Button-3>",topWind.clear)
+topWind.listWindow.bind("<Button-3>",clearTopWind)
 topWind.writeH("===Please Click Buttons Below===")
 for item in RSVar.List1:
    topWind.writeN(item)
