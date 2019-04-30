@@ -47,7 +47,7 @@ class listWindow:
         self.listWindow.insert(END,inStr+'\n')
         self.listWindow.see(END)
         indexx = int(self.listWindow.index(Tk.INSERT).split('.')[0]) - 1
-        self.listWindow.tag_add("here", f'{indexx}.0', f'{indexx}.40')
+        self.listWindow.tag_add("here", f'{indexx}.0', f'{indexx}.80')
         self.listWindow.tag_config("here", background="green2", foreground="black")
         self.master.update()
         return self
