@@ -47,10 +47,15 @@ def gui_reader(root):
 def IDN(tkEvent):
     instr = jaVisa().jav_Open(tkEvent.widget.get())                          #pylint:disable=E1101
     instr.jav_Close()
-    
+
 def SYSTERR(tkEvent):
     instr = jaVisa().jav_Open(tkEvent.widget.get())
     instr.jav_ClrErr()
+    instr.jav_Close()
+
+def SYSTNFO(tkEvent):
+    instr = jaVisa().jav_Open(tkEvent.widget.get())
+    instr.query('SYST:DFPR?')
     instr.jav_Close()
 
 def instr1(root):
@@ -114,6 +119,7 @@ def main():
     root.bottWind.stdOut()                              #Stdout --> window
     root.buttnRow   = buttonRow(root, 3,makequit=0)                                 #pylint: disable=unused-variable
     root.bottbtnRow = buttonRow(root, 4)                                            #pylint: disable=unused-variable
+    root.bottWind.writeH('Lt-Click: IDN     Rt-Click: SystError     2Rt-Click: SystInfo')
 
     ### Define Sections
     root.entryCol1.entry0.bind("<Double-Button-1>",IDN)                             #pylint: disable=E1101
@@ -122,6 +128,9 @@ def main():
     root.entryCol1.entry0.bind("<Button-3>",SYSTERR)                                #pylint: disable=E1101
     root.entryCol2.entry0.bind("<Button-3>",SYSTERR)                                #pylint: disable=E1101
     root.entryCol3.entry0.bind("<Button-3>",SYSTERR)                                #pylint: disable=E1101
+    root.entryCol1.entry0.bind("<Double-Button-3>",SYSTNFO)                         #pylint: disable=E1101
+    root.entryCol2.entry0.bind("<Double-Button-3>",SYSTNFO)                         #pylint: disable=E1101
+    root.entryCol3.entry0.bind("<Double-Button-3>",SYSTNFO)                         #pylint: disable=E1101
 
     root.SCPI1.listWindow.config(width=20,height=10)
     root.SCPI2.listWindow.config(width=20,height=10)
