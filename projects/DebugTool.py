@@ -21,6 +21,11 @@ import os
 #####################################################################
 ### Function Definition
 #####################################################################
+def clearBottom(root):
+    root.bottWind.clear()
+    root.bottWind.writeH('2xLt-Click: IDN     Rt-Click: SystError     2xRt-Click: SystInfo')
+
+
 def fopen(root):
     os.system('notepad.exe ' + __file__ + '.txt')
 
@@ -45,16 +50,23 @@ def gui_reader(root):
     return RS
 
 def IDN(tkEvent):
-    instr = jaVisa().jav_Open(tkEvent.widget.get())                          #pylint:disable=E1101
+    ipAddy = tkEvent.widget.get()
+    print(f'IDN       : {ipAddy}')
+    instr = jaVisa().jav_Open(ipAddy)                          #pylint:disable=E1101
     instr.jav_Close()
 
 def SYSTERR(tkEvent):
-    instr = jaVisa().jav_Open(tkEvent.widget.get())
+    ipAddy = tkEvent.widget.get()
+    print(f'SYS Err   : {ipAddy}')
+    instr = jaVisa().jav_Open(ipAddy)                          #pylint:disable=E1101
     instr.jav_ClrErr()
+    print(f'SYS Err   : No Error')
     instr.jav_Close()
 
 def SYSTNFO(tkEvent):
-    instr = jaVisa().jav_Open(tkEvent.widget.get())
+    ipAddy = tkEvent.widget.get()
+    print(f'SYS INFO  : {ipAddy}')
+    instr = jaVisa().jav_Open(ipAddy)                          #pylint:disable=E1101
     instr.query('SYST:DFPR?')
     instr.jav_Close()
 
@@ -119,7 +131,7 @@ def main():
     root.bottWind.stdOut()                              #Stdout --> window
     root.buttnRow   = buttonRow(root, 3,makequit=0)                                 #pylint: disable=unused-variable
     root.bottbtnRow = buttonRow(root, 4)                                            #pylint: disable=unused-variable
-    root.bottWind.writeH('Lt-Click: IDN     Rt-Click: SystError     2Rt-Click: SystInfo')
+    clearBottom(root)
 
     ### Define Sections
     root.entryCol1.entry0.bind("<Double-Button-1>",IDN)                             #pylint: disable=E1101
@@ -143,7 +155,7 @@ def main():
 
     root.bottbtnRow.button0.config(text='write File',command=lambda: fwrite(root))  #pylint: disable=E1101
     root.bottbtnRow.button1.config(text='open File' ,command=lambda: fopen(root))   #pylint: disable=E1101
-    root.bottbtnRow.button2.config(text='clear'     ,command=lambda: root.bottWind.clear())   #pylint: disable=E1101
+    root.bottbtnRow.button2.config(text='clear'     ,command=lambda: clearBottom(root))   #pylint: disable=E1101
     root.bottbtnRow.button3.config(text='MyIP'      ,command=MyIp)                          #pylint: disable=E1101
 
     ### Grid Sections
