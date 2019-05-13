@@ -66,7 +66,7 @@ class StdoutRedirector(object):
         sys.stdout = sys.__stdout__         #Send Stdout back to terminal
 
 if __name__ == '__main__':
-    root = theme.theme().addColor()
+    root = theme().addColor()
     app = listWindow(root)                     #pylint: disable=unused-variable
     app.stdOut()
     for i in range(10):
