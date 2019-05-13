@@ -12,8 +12,8 @@ BotWindWid  = ColxWid + 15
 ### Code Import
 ########################################################################
 from datetime                   import datetime
-import tkinter                  as      Tk
-import tkinter.filedialog       as      tkFileDialog
+import tkinter                  as     Tk
+import tkinter.filedialog       as     tkFileDialog
 from GUIBlox                    import buttonRow, entryCol, theme, listWindow
 END = Tk.END
 
@@ -73,16 +73,16 @@ def gui_reader():
     
     ### Set 5GNR Parameters
     NR5G = VST().jav_Open(SMW_IP,FSW_IP)                    #pylint:disable=E1101
-    NR5G.Freq          = float(entryCol.entry2.get())       #pylint:disable=E1101
-    NR5G.SWM_Out      = float(entryCol.entry3.get())        #pylint:disable=E1101
-    NR5G.NR_Dir        = entryCol.entry4_enum.get()         #pylint:disable=E1101
-    NR5G.NR_Deploy    = entryCol.entry5_enum.get()          #pylint:disable=E1101
-    NR5G.NR_ChBW      = int(entryCol.entry6_enum.get())     #pylint:disable=E1101
-    NR5G.NR_SubSp     = int(entryCol.entry7_enum.get())     #pylint:disable=E1101
-    NR5G.NR_RB         = int(entryCol.entry8.get())         #pylint:disable=E1101
-    NR5G.NR_RBO        = int(entryCol.entry9.get())         #pylint:disable=E1101
-    NR5G.NR_Mod        = entryCol.entry10_enum.get()        #pylint:disable=E1101
-    NR5G.NR_TF         = 'OFF'
+    NR5G.Freq       = float(entryCol.entry2.get())          #pylint:disable=E1101
+    NR5G.SWM_Out    = float(entryCol.entry3.get())          #pylint:disable=E1101
+    NR5G.NR_Dir     = entryCol.entry4_enum.get()            #pylint:disable=E1101
+    NR5G.NR_Deploy  = entryCol.entry5_enum.get()            #pylint:disable=E1101
+    NR5G.NR_ChBW    = int(entryCol.entry6_enum.get())       #pylint:disable=E1101
+    NR5G.NR_SubSp   = int(entryCol.entry7_enum.get())       #pylint:disable=E1101
+    NR5G.NR_RB      = int(entryCol.entry8.get())            #pylint:disable=E1101
+    NR5G.NR_RBO     = int(entryCol.entry9.get())            #pylint:disable=E1101
+    NR5G.NR_Mod     = entryCol.entry10_enum.get()           #pylint:disable=E1101
+    NR5G.NR_TF      = 'OFF'
     return NR5G
 
 def btn1():
@@ -104,13 +104,13 @@ def btn2():
     topWind.writeN('--------------------------    --------------------------')
     topWind.writeN(' ')
 
-    NR5G = gui_reader()
-    data = NR5G.SMW.Get_5GNR_RBMax()
-    topWind.writeN("=== Max RB ===")
-    topWind.writeN("Mode: %s %sMHz"%(NR5G.SMW.Get_5GNR_FreqRange(),NR5G.SMW.Get_5GNR_ChannelBW()))
-    for i in data:
-        topWind.writeN("SubC:%d  RB Max:%d"%(i[0],i[1]))
-    NR5G.jav_Close()
+    # NR5G = gui_reader()
+    # data = NR5G.SMW.Get_5GNR_RBMax()
+    # topWind.writeN("=== Max RB ===")
+    # topWind.writeN("Mode: %s %sMHz"%(NR5G.SMW.Get_5GNR_FreqRange(),NR5G.SMW.Get_5GNR_ChannelBW()))
+    # for i in data:
+    #     topWind.writeN("SubC:%d  RB Max:%d"%(i[0],i[1]))
+    # NR5G.jav_Close()
 
 def btn3():
     ### Get EVM ###
@@ -219,7 +219,7 @@ def dataSave():
     try: #Python3
         f = open(__file__ + ".csv",'wt', encoding='utf-8')
     except:
-        f = open(__file__ + ".csv",'wb')        
+        f = open(__file__ + ".csv",'wb')
     f.write('%s,'%(entryCol.entry0.get()))
     f.write('%s,'%(entryCol.entry1.get()))
     f.write('%s,'%(entryCol.entry2.get()))
@@ -264,12 +264,12 @@ entryCol.label3.bind("<Button-1>",click4)                   #Power, RMS
 entryCol.label8.bind("<Button-1>",click14)                  #RB
 entryCol.label9.bind("<Button-1>",click15)                  #RB Offset
 
-buttnRow.button0.config(text='*IDN?'    ,command=btn1)      #pylint: disable=E1101
+buttnRow.button0.config(text='*IDN?'   ,command=btn1)       #pylint: disable=E1101
 buttnRow.button1.config(text='Max RB'  ,command=btn2)       #pylint: disable=E1101
 buttnRow.button2.config(text='Get EVM' ,command=btn3)       #pylint: disable=E1101
 buttnRow.button3.config(text='Set_5GNR',command=btn4)       #pylint: disable=E1101
 buttnRow.button4.config(text='Get_5GNR',command=btn5)       #pylint: disable=E1101
-buttnRow.button5.config(text='Save WV',command=btn6)        #pylint: disable=E1101
+buttnRow.button5.config(text='Save WV' ,command=btn6)       #pylint: disable=E1101
 
 ########################################################################
 ### List Boxes
