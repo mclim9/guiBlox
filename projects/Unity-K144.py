@@ -31,15 +31,15 @@ botWind = listWindow(GUI)
 buttnRow = buttonRow(GUI, 6)                        #pylint: disable=unused-variable
 
 entryDict = {} 
-entryDict['SMW IP']          = '192.168.1.114'
-entryDict['FSW IP']          = '192.168.1.109'
+entryDict['SMW IP']         = '192.168.1.114'
+entryDict['FSW IP']         = '192.168.1.109'
 entryDict['Frequency']      = '28e9'
-entryDict['SMW Power,RMS'] = '-5'
+entryDict['SMW Power,RMS']  = '-5'
 entryDict['Direction']      = 'UL'
 entryDict['Freq Band']      = 'HIGH'
 entryDict['Ch BW,MHz']      = '100'
 entryDict['SubCarr,kHz']    = '60'
-entryDict['RB']                = '132'
+entryDict['RB']             = '132'
 entryDict['RB Offset']      = '0'
 entryDict['Modulation']     = 'QPSK'
 entryCol = entryCol(GUI, entryDict)
@@ -68,11 +68,11 @@ class GUIData(object):
 
 def gui_reader():
     ### Read values from GUI
-    SMW_IP              = entryCol.entry0.get()             #pylint:disable=E1101
-    FSW_IP              = entryCol.entry1.get()             #pylint:disable=E1101
+    SMW_IP          = entryCol.entry0.get()                 #pylint:disable=E1101
+    FSW_IP          = entryCol.entry1.get()                 #pylint:disable=E1101
     
     ### Set 5GNR Parameters
-    NR5G = VST().jav_Open(SMW_IP,FSW_IP)                    #pylint:disable=E1101
+    NR5G            = VST().jav_Open(SMW_IP,FSW_IP)         #pylint:disable=E1101
     NR5G.Freq       = float(entryCol.entry2.get())          #pylint:disable=E1101
     NR5G.SWM_Out    = float(entryCol.entry3.get())          #pylint:disable=E1101
     NR5G.NR_Dir     = entryCol.entry4_enum.get()            #pylint:disable=E1101
@@ -137,9 +137,12 @@ def btn5():
     K144Data = NR5G.Get_5GNR_All() 
     #windowUpperClear()
     topWind.writeN(" ")
+    botWind.writeH('Get_5GNR Differences                 ')
     for i in range(len(K144Data[0])):
         try:
             topWind.writeN("%s\t%s\t%s"%(K144Data[0][i],K144Data[1][i],K144Data[2][i]))
+            if K144Data[1][i] != K144Data[2][i]:
+                botWind.writeH(f'{K144Data[0][i]}\t{K144Data[1][i]}\t{K144Data[2][i]}')
         except: 
             try:
                 topWind.writeN("%s\t%s\t%s"%(K144Data[0][i],K144Data[1][i],'<notRead>'))
@@ -197,25 +200,32 @@ def click15(tkEvent):
 
 def clearTopWind(tkEvent):
     topWind.clear()
+    topWind.writeH("===Please Click Buttons Below===")
+    RSVar = GUIData() 
+    for item in RSVar.List1:
+        topWind.writeN(item)
 
 def dataLoad():
-    OutObj = GUIData()
     try:
         try:          #Python3
             f = open(__file__ + ".csv","rt")
         except:      #Python2
             f = open(__file__ + ".csv","rb")
         data = f.read().split(',')
-        OutObj.Entry1 = data[0]
-        OutObj.Entry2 = data[1]
-        OutObj.Entry3 = data[2]
-        OutObj.Entry4 = data[3]
+        entryCol.entry0.delete(0,END)
+        entryCol.entry0.insert(0,data[0])
+        entryCol.entry1.delete(0,END)
+        entryCol.entry1.insert(0,data[1])
+        entryCol.entry2.delete(0,END)
+        entryCol.entry2.insert(0,data[2])
+        entryCol.entry3.delete(0,END)
+        entryCol.entry3.insert(0,data[3])
         botWind.writeN("DataLoad: File")
     except:
         botWind.writeN("DataLoad: Default")
-    return OutObj
 
 def dataSave():
+    # NR5G = gui_reader()
     try: #Python3
         f = open(__file__ + ".csv",'wt', encoding='utf-8')
     except:
@@ -225,14 +235,14 @@ def dataSave():
     f.write('%s,'%(entryCol.entry2.get()))
     f.write('%s,'%(entryCol.entry3.get()))
     f.close()
-    botWind.writeN("DataSave: File Saved")
-    
+    print("DataSave: File Saved")
+
 def menu_Exit():
     global GUI
     dataSave() 
     GUI.quit()
     GUI.destroy()
-    print("Program End")
+    # print("Program End")
 
 def menu_Open():
     asdf = tkFileDialog.askopenfilename()
@@ -244,12 +254,12 @@ def menu_Save():
 ########################################################################
 ### Main Code
 ########################################################################
-RSVar = copy.copy(dataLoad())
+dataLoad()
 
 try:
     #GUI.tk.call('wm', 'iconphoto', GUI._w, Tk.PhotoImage(file='Unity.gif'))
-    GUI.geometry("740x520")
-    GUI.resizable(0,0)
+    GUI.geometry("740x600")
+    # GUI.resizable(0,0)
     GUI.config(bg=ClrAppBg)
     #Tk.Font(family="Helvetica", size=10, weight=Tk.font.BOLD, slant=Tk.font.ITALIC)
     GUI.iconbitmap('Unity.ico')
@@ -270,17 +280,16 @@ buttnRow.button2.config(text='Get EVM' ,command=btn3)       #pylint: disable=E11
 buttnRow.button3.config(text='Set_5GNR',command=btn4)       #pylint: disable=E1101
 buttnRow.button4.config(text='Get_5GNR',command=btn5)       #pylint: disable=E1101
 buttnRow.button5.config(text='Save WV' ,command=btn6)       #pylint: disable=E1101
+buttnRow.button6.config(command=menu_Exit)       #pylint: disable=E1101
 
 ########################################################################
 ### List Boxes
 ########################################################################
-topWind.listWindow.config(width=ColxWid, height=20, tabs=('5c', '7c', '9c'))
+topWind.listWindow.config(width=ColxWid, height=25, tabs=('5c', '7c', '9c'))
 topWind.listWindow.bind("<Button-3>",clearTopWind)
-topWind.writeH("===Please Click Buttons Below===")
-for item in RSVar.List1:
-    topWind.writeN(item)
+clearTopWind(None)
 
-botWind.listWindow.config(wrap='none', height=8)
+botWind.listWindow.config(wrap='none', height=8, tabs=('5c', '7c', '9c'))
 botWind.stdOut()
 botWind.writeH("Output Window")
 
