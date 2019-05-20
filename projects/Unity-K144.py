@@ -141,13 +141,19 @@ def btn5():
     for i in range(len(K144Data[0])):
         try:
             topWind.writeN("%s\t%s\t%s"%(K144Data[0][i],K144Data[1][i],K144Data[2][i]))
+            if 'Direction' in K144Data[0][i]:
+                K144Data[1][i] = 'UL'   if K144Data[1][i] == 'UP' else 'DL'
+            if 'FreqRange' in K144Data[0][i]:
+                K144Data[1][i] = 'HIGH' if K144Data[1][i] == 'GT6'  else K144Data[1][i]
+                K144Data[1][i] = 'MIDD' if K144Data[1][i] == 'BT36' else K144Data[1][i]
+                K144Data[1][i] = 'LOW'  if K144Data[1][i] == 'LT3'  else K144Data[1][i]
+            if 'SubSpacing'  in K144Data[0][i]:
+                K144Data[1][i] = K144Data[1][i].replace('N','')
+                K144Data[2][i] = K144Data[2][i].replace('SS','')
             if K144Data[1][i] != K144Data[2][i]:
                 botWind.writeH(f'{K144Data[0][i]}\t{K144Data[1][i]}\t{K144Data[2][i]}')
         except: 
-            try:
-                topWind.writeN("%s\t%s\t%s"%(K144Data[0][i],K144Data[1][i],'<notRead>'))
-            except:
-                topWind.writeN("%s\t%s\t%s"%(K144Data[0][i],'<notRead>',K144Data[2][i]))
+            pass
     NR5G.jav_Close()
 
 def btn6():
