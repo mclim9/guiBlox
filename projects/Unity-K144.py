@@ -28,7 +28,7 @@ GUI = theme().addColor()                            #Create GUI object
 GUI.title('Rohde&Schwarz FSW SMW 5GNR Utility')     #GUI Title
 topWind = listWindow(GUI)
 botWind = listWindow(GUI)
-buttnRow = buttonRow(GUI, 6)                        #pylint: disable=unused-variable
+buttnRow = buttonRow(GUI, 8)                        #pylint: disable=unused-variable
 
 entryDict = {} 
 entryDict['SMW IP']         = '192.168.1.114'

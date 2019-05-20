@@ -7,41 +7,28 @@
 ### User Inputs
 #####################################################################
 entryDict = {} 
-entryDict['SMW IP']     = '192.168.1.114'
-entryDict['FSW IP']     = '192.168.1.114'
-entryDict['Freq Start'] = '24e9'
-entryDict['Freq Stop']  = '39e9'
-entryDict['Freq Step']  = '500e6'
-
-if 0:
-    buttnDict = {}
-    buttnDict['foo'] = lambda: testprint1(root) #pylint: disable=E0602
-    buttnDict['bar'] = lambda: testprint2(root) #pylint: disable=E0602
-    buttnDict['baz'] = lambda: testprint3(root) #pylint: disable=E0602
+entryDict['Entry1']     = '192.168.1.114'
+entryDict['Entry2']     = '192.168.1.114'
+entryDict['Entry3']     = 'spam.ham.eggs'
 
 #####################################################################
 ### OOGUI Import 
 #####################################################################
-from GUIBlox.buttonRow  import buttonRow
-from GUIBlox.entryCol   import entryCol
-from GUIBlox.theme    import theme
-from GUIBlox.listWindow import listWindow
+from GUIBlox                    import buttonRow, entryCol, theme, listWindow
 
 #####################################################################
 ### Function Definition
 #####################################################################
-def testprint1(root):
-    #print(f'asdf-{root.entryCol.entry0.get()}')
-    #root.bottWind.clear()
-    #root.bottWind.wwrite('asdf')
-    root.bottWind.hwrite('asdfadsf')
+def buttonfunc1(root):
+    root.bottWind.writeH('Highlight')
     pass
 
-def testprint2(root):
+def buttonfunc2(root):
     root.bottWind.clear()
     
-def testprint3(root):
-    root.bottWind.wwrite('asdf')
+def buttonfunc3(root):
+    root.bottWind.writeN('Normal')
+    print('Print works too')
 
 #####################################################################
 ### GUI Layout
@@ -50,24 +37,22 @@ def main():
     root = theme().addColor()
     root.title('GUI Example')
 
-    ### Create Sections
+    ### Create GUI Elements
     root.entryCol = entryCol(root, entryDict)
     root.toppWind = listWindow(root)
     root.bottWind = listWindow(root)
     root.bottWind.stdOut()                                  #Stdout --> window
     root.buttnRow = buttonRow(root, 3)                      #pylint: disable=unused-variable
 
-    ### Define Sections
+    ### Assign Functions
     root.entryCol.frame.config(width=100)
     root.toppWind.listWindow.config(height=10,width=40)
     root.bottWind.listWindow.config(height= 5,width=66)
-#    for i,key in enumerate(buttnDict):
-#        getattr(root.buttnRow,f'button{i}').config(text=f'{key}', command=lambda: buttnDict[key]())
-    root.buttnRow.button0.config(text='foo'  ,command=lambda: testprint1(root))     #pylint: disable=E1101
-    root.buttnRow.button1.config(text='clear',command=lambda: testprint2(root))     #pylint: disable=E1101
-    root.buttnRow.button2.config(text='baz'  ,command=lambda: testprint3(root))     #pylint: disable=E1101
+    root.buttnRow.button0.config(text='foo'  ,command=lambda: buttonfunc1(root))     #pylint: disable=E1101
+    root.buttnRow.button1.config(text='clear',command=lambda: buttonfunc2(root))     #pylint: disable=E1101
+    root.buttnRow.button2.config(text='baz'  ,command=lambda: buttonfunc3(root))     #pylint: disable=E1101
 
-    ### Grid Sections
+    ### Place into root
     root.grid_rowconfigure(2, weight=1)
     root.entryCol.frame.grid(row=0,column=0,sticky="ns")
     root.toppWind.frame.grid(row=0,column=1)
