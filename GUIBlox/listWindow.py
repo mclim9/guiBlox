@@ -25,17 +25,17 @@ class listWindow:
             self.listWindow.insert(END,i)
         self.listWindow.see(END)
 
-    def getstr(self):
-        return self.listWindow.get("1.0",END)
+    def clear(self):
+        self.listWindow.delete(0.0,END)
 
     def getlist(self):
         return self.listWindow.get("1.0",END).split('\n')
 
+    def getstr(self):
+        return self.listWindow.get("1.0",END)
+
     def stdOut(self):
         sys.stdout = StdoutRedirector(self.listWindow)
-
-    def clear(self):
-        self.listWindow.delete(0.0,END)
 
     def writeN(self,inStr):
         self.listWindow.insert(END,inStr+'\n')
