@@ -8,6 +8,19 @@
 ColxWid     = 60 -4
 BotWindWid  = ColxWid + 15
 
+entryDict = {} 
+entryDict['SMW IP']         = '192.168.1.114'
+entryDict['FSW IP']         = '192.168.1.109'
+entryDict['Frequency']      = '28e9'
+entryDict['SMW Power,RMS']  = '-5'
+entryDict['Direction']      = 'UL'
+entryDict['Freq Band']      = 'HIGH'
+entryDict['Ch BW,MHz']      = '100'
+entryDict['SubCarr,kHz']    = '60'
+entryDict['RB']             = '132'
+entryDict['RB Offset']      = '0'
+entryDict['Modulation']     = 'QPSK'
+
 ########################################################################
 ### Code Import
 ########################################################################
@@ -22,39 +35,14 @@ import copy
 from rssd.VST_5GNR_K144         import VST          #pylint:disable=E0611,E0401
 
 ########################################################################
-### Create GUI Objects
+### GUIBlox Create items
 ########################################################################
 GUI = theme().addColor()                            #Create GUI object
 GUI.title('Rohde&Schwarz FSW SMW 5GNR Utility')     #GUI Title
-topWind = listWindow(GUI)
-botWind = listWindow(GUI)
-buttnRow = buttonRow(GUI, 8)                        #pylint: disable=unused-variable
-
-entryDict = {} 
-entryDict['SMW IP']         = '192.168.1.114'
-entryDict['FSW IP']         = '192.168.1.109'
-entryDict['Frequency']      = '28e9'
-entryDict['SMW Power,RMS']  = '-5'
-entryDict['Direction']      = 'UL'
-entryDict['Freq Band']      = 'HIGH'
-entryDict['Ch BW,MHz']      = '100'
-entryDict['SubCarr,kHz']    = '60'
-entryDict['RB']             = '132'
-entryDict['RB Offset']      = '0'
-entryDict['Modulation']     = 'QPSK'
+topWind  = listWindow(GUI)
+botWind  = listWindow(GUI)
+buttnRow = buttonRow(GUI, 6)                        #pylint: disable=unused-variable
 entryCol = entryCol(GUI, entryDict)
-
-entryCol.chg2Enum('entry4', ['UL','DL'])
-entryCol.chg2Enum('entry5', ["LOW", "MIDD", "HIGH"])
-entryCol.chg2Enum('entry6', ["20","50","100","200","400"])
-entryCol.chg2Enum('entry7', ["15", "30", "60", "120"])
-entryCol.chg2Enum('entry10', ["QPSK", "QAM16", "QAM64", "QAM256"])
-
-entryCol.entry4_enum.set("UL")          # default value pylint:disable=E1101
-entryCol.entry5_enum.set("HIGH")        # default value pylint:disable=E1101
-entryCol.entry6_enum.set("100")         # default value pylint:disable=E1101
-entryCol.entry7_enum.set("60")          # default value pylint:disable=E1101
-entryCol.entry10_enum.set("QPSK")       # default value pylint:disable=E1101
 
 ########################################################################
 ### GUI Functions
@@ -70,7 +58,7 @@ def gui_reader():
     ### Read values from GUI
     SMW_IP          = entryCol.entry0.get()                 #pylint:disable=E1101
     FSW_IP          = entryCol.entry1.get()                 #pylint:disable=E1101
-    
+
     ### Set 5GNR Parameters
     NR5G            = VST().jav_Open(SMW_IP,FSW_IP)         #pylint:disable=E1101
     NR5G.Freq       = float(entryCol.entry2.get())          #pylint:disable=E1101
@@ -91,9 +79,9 @@ def btn1():
     print(NR5G.SMW.query('*IDN?'))
     print(NR5G.FSW.query('*IDN?'))
     NR5G.jav_Close()
-    
+
 def btn2():
-    ### Get Max RB ###
+    ### Display Max RB
     topWind.writeN('--------------------------    --------------------------')
     topWind.writeN('|u[<6GHz ]010 020 050 100|    |u[>6GHz ]050 100 200 400|')
     topWind.writeN('|-+------+---+---+---+---|    |-+------+---+---+---+---|')
@@ -113,16 +101,16 @@ def btn2():
     # NR5G.jav_Close()
 
 def btn3():
-    ### Get EVM ###
+    ### Get EVM
     NR5G = gui_reader()
     NR5G.FSW.Set_InitImm()
     topWind.writeN(f'EVM: {NR5G.FSW.Get_5GNR_EVM():.4f}')
     NR5G.FSW.jav_Close()
     
 def btn4():
+    ### Set 5GNR Parameters
     NR5G = gui_reader()
 
-    ### Do some work
     print("SMW Creating Waveform.")
     NR5G.Set_5GNR_All()
     print(NR5G.FSW.jav_ClrErr())
@@ -131,11 +119,10 @@ def btn4():
     NR5G.jav_Close()
 
 def btn5():
+    ### Read 5GNR Parameters ###
     NR5G = gui_reader()
 
-    ### Read 5GNR Parameters ###
     K144Data = NR5G.Get_5GNR_All() 
-    #windowUpperClear()
     topWind.writeN(" ")
     botWind.writeH('Get_5GNR Differences                 ')
     for i in range(len(K144Data[0])):
@@ -273,23 +260,38 @@ except:
     pass
 
 ########################################################################
-### Define GUI Widgets
+### GUIBlox modify: EntryCol
 ########################################################################
+entryCol.chg2Enum('entry4', ['UL','DL'])
+entryCol.chg2Enum('entry5', ["LOW", "MIDD", "HIGH"])
+entryCol.chg2Enum('entry6', ["20","50","100","200","400"])
+entryCol.chg2Enum('entry7', ["15", "30", "60", "120"])
+entryCol.chg2Enum('entry10', ["QPSK", "QAM16", "QAM64", "QAM256"])
+
+entryCol.entry4_enum.set("UL")              # default value pylint:disable=E1101
+entryCol.entry5_enum.set("HIGH")            # default value pylint:disable=E1101
+entryCol.entry6_enum.set("100")             # default value pylint:disable=E1101
+entryCol.entry7_enum.set("60")              # default value pylint:disable=E1101
+entryCol.entry10_enum.set("QPSK")           # default value pylint:disable=E1101
+
 entryCol.label2.bind("<Button-1>",click3)                   #Frequency
 entryCol.label3.bind("<Button-1>",click4)                   #Power, RMS
 entryCol.label8.bind("<Button-1>",click14)                  #RB
 entryCol.label9.bind("<Button-1>",click15)                  #RB Offset
 
+########################################################################
+### GUIBlox modify: Button Row
+########################################################################
 buttnRow.button0.config(text='*IDN?'   ,command=btn1)       #pylint: disable=E1101
 buttnRow.button1.config(text='Max RB'  ,command=btn2)       #pylint: disable=E1101
 buttnRow.button2.config(text='Get EVM' ,command=btn3)       #pylint: disable=E1101
 buttnRow.button3.config(text='Set_5GNR',command=btn4)       #pylint: disable=E1101
 buttnRow.button4.config(text='Get_5GNR',command=btn5)       #pylint: disable=E1101
 buttnRow.button5.config(text='Save WV' ,command=btn6)       #pylint: disable=E1101
-buttnRow.button6.config(command=menu_Exit)       #pylint: disable=E1101
+buttnRow.button6.config(command=menu_Exit)                  #pylint: disable=E1101
 
 ########################################################################
-### List Boxes
+### GUIBlox modify: Output Text Boxes
 ########################################################################
 topWind.listWindow.config(width=ColxWid, height=25, tabs=('5c', '7c', '9c'))
 topWind.listWindow.bind("<Button-3>",clearTopWind)
@@ -300,7 +302,7 @@ botWind.stdOut()
 botWind.writeH("Output Window")
 
 ########################################################################
-### Draw Widgets w/ Grid 
+### GUIBlox Draw Widgets w/ Grid 
 ########################################################################
 entryCol.frame.grid(row=0,column=0,sticky="nsew")
 topWind.frame.grid(row=0,column=1,sticky='e')
@@ -326,6 +328,6 @@ if 0:
     menu.add_cascade(label="Edit",menu=editMenu)            #add dropdown menu
 
 ########################################################################
-# Start Program
+# GUIBLox Start Program
 ########################################################################
 GUI.mainloop()                                              #Display window
