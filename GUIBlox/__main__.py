@@ -6,9 +6,9 @@
 ### User Inputs
 ###############################################################################
 entryDict = {}          # Dict for entry column object
-entryDict['Entry1']     = '192.168.1.114'
-entryDict['Entry2']     = '192.168.1.114'
-entryDict['Entry3']     = 'spaceHolder'
+entryDict['Label1']     = 'Data1'
+entryDict['Label2']     = 'Data2'
+entryDict['Label3']     = 'Data3'
 
 ###############################################################################
 ### Import Statements
@@ -31,20 +31,24 @@ def buttonfunc3(root):
     print('Print works too')
 
 ###############################################################################
-### GUI Layout
+### Main Function
 ###############################################################################
 def main(): 
+    ### guiblox: Create Tk GUI object
     root = theme().addColor()                               # Create GUI object w/ colors defined.
-    root.title('GUI Example')
+    root.title('GUIBlox Example')                           # Optional: Specify title
+    root.resizable(0,0)                                     # Optional: Disables x/y resizing
+    root.geometry("600x300")                                # Optional: specify x/y size
+    # root.iconbitmap('guiblox.ico')                        # Optional: specify icon
 
-    ### Create GUI Elements
+    ### guiblox: Create Widgets
     root.entryCol = entryCol(root, entryDict)               # Create column of entry fields
     root.toppWind = listWindow(root)                        # Create top text box
     root.bottWind = listWindow(root)                        # Create bottom text box
     root.bottWind.stdOut()                                  # Print --> bottWind
     root.buttnRow = buttonRow(root, 3)                      # pylint: disable=unused-variable
 
-    ### Assign Functions/Behavior
+    ### guiblox: Customize behavior 
     root.entryCol.frame.config(width=100)                   
     root.entryCol.chg2Enum('entry2', ['Opt1','Opt2'])       # Chg entry2 to pull down
     root.entryCol.entry2_enum.set('Opt1')                   # entry2 default value
@@ -55,7 +59,7 @@ def main():
     root.buttnRow.button1.config(text='clear',command=lambda: buttonfunc2(root))     #pylint: disable=E1101
     root.buttnRow.button2.config(text='baz'  ,command=lambda: buttonfunc3(root))     #pylint: disable=E1101
 
-    ### Place into root
+    ### guiblox: draw elements
     root.grid_rowconfigure(2, weight=1)
     root.entryCol.frame.grid(row=0,column=0,sticky="ns")
     root.toppWind.frame.grid(row=0,column=1,sticky='e')
