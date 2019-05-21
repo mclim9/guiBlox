@@ -25,7 +25,6 @@ def clearBottom(root):
     root.bottWind.clear()
     root.bottWind.writeH('2xLt-Click: IDN     Rt-Click: SystError     2xRt-Click: SystInfo')
 
-
 def fopen(root):
     os.system('notepad.exe ' + __file__ + '.txt')
 
