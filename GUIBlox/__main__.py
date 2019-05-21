@@ -13,7 +13,7 @@ entryDict['Label3']     = 'Data3'
 ###############################################################################
 ### Import Statements
 ###############################################################################
-from GUIBlox                    import buttonRow, entryCol, theme, listWindow
+from guiblox                    import buttonRow, entryCol, theme, listWindow
 
 ###############################################################################
 ### Function Definition
@@ -36,7 +36,7 @@ def buttonfunc3(root):
 def main(): 
     ### guiblox: Create Tk GUI object
     root = theme().addColor()                               # Create GUI object w/ colors defined.
-    root.title('GUIBlox Example')                           # Optional: Specify title
+    root.title('guiblox Example')                           # Optional: Specify title
     root.resizable(0,0)                                     # Optional: Disables x/y resizing
     root.geometry("600x300")                                # Optional: specify x/y size
     # root.iconbitmap('guiblox.ico')                        # Optional: specify icon

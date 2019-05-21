@@ -1,5 +1,5 @@
 import tkinter  as tk
-from GUIBlox    import theme
+from guiblox    import theme
 
 import sys
 

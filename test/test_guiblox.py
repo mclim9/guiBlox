@@ -12,7 +12,7 @@ import unittest
 
 class TestGeneral(unittest.TestCase):
     def setUp(self):                                #Run before each test
-        from GUIBlox import theme
+        from guiblox import theme
         self.GUI = theme().addColor()                            #Create GUI object
         print("",end="")
         pass
@@ -27,15 +27,15 @@ class TestGeneral(unittest.TestCase):
         pass
 
     def test_buttonrow(self):
-        from GUIBlox import buttonRow
+        from guiblox import buttonRow
         self.testObj = buttonRow(self.GUI, 3)
 
     def test_listWindow(self):
-        from GUIBlox import listWindow
+        from guiblox import listWindow
         self.testObj = listWindow(self.GUI)
 
     def test_entryCol(self):
-        from GUIBlox import entryCol
+        from guiblox import entryCol
         entryDict = {} 
         entryDict['Label1'] = 'Value1'
         entryDict['Label2'] = 'Value2'

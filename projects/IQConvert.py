@@ -10,8 +10,7 @@
 #####################################################################
 ### OOGUI Import 
 #####################################################################
-# import GUIBlox
-from GUIBlox                import buttonRow, entryCol, theme, listWindow
+from guiblox                import buttonRow, entryCol, theme, listWindow
 
 ### Code specific imports
 import tkinter as tk

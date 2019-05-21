@@ -27,7 +27,7 @@ entryDict['Modulation']     = 'QPSK'
 from datetime                   import datetime
 import tkinter                  as     Tk
 import tkinter.filedialog       as     tkFileDialog
-from GUIBlox                    import buttonRow, entryCol, theme, listWindow
+from guiblox                    import buttonRow, entryCol, theme, listWindow
 END = Tk.END
 
 #Code specific libraries

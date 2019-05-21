@@ -1,4 +1,4 @@
-from GUIBlox                import theme
+from guiblox                import theme
 from tkinter                import ttk
 import tkinter.filedialog   as     tkFileDialog
 import tkinter              as     Tk

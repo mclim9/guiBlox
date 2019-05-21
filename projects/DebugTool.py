@@ -10,7 +10,7 @@
 #####################################################################
 ### OOGUI Import 
 #####################################################################
-from GUIBlox                import buttonRow, entryCol, theme, listWindow
+from guiblox                import buttonRow, entryCol, theme, listWindow
 
 ### Code specific imports
 from   rssd.yaVISA_socket   import jaVisa
