@@ -11,6 +11,7 @@ class listWindow:
         self.frame = Tk.Frame(master)
         self.listWindow = Tk.Text(self.frame,bg=master.clr['txtBg'], fg=master.clr['txtFg'], insertbackground=master.clr['txtFg'])
         self.scrlWindow = ttk.Scrollbar(self.frame, orient=Tk.VERTICAL,command=self.listWindow.yview)  #Create scrollbar
+        self.listWindow['yscrollcommand'] = self.scrlWindow.set
 
         self.listWindow.grid(row=0,column=0,sticky='nsew')
         self.scrlWindow.grid(row=0,column=1,sticky='nsew')
