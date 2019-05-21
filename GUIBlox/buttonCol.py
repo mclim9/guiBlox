@@ -41,7 +41,6 @@ class Popup:
         self.master.destroy()
 
 if __name__ == '__main__':
-    root = theme.theme().addColor()
+    root = theme().addColor()
     app = buttonCol(root,10)                     #pylint: disable=unused-variable
-    #app.frame.config(width=300, height=50)
     root.mainloop()
