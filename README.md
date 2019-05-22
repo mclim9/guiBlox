@@ -6,14 +6,14 @@ Object oriented GUI library.  Programatically generate common gui items.
 
 ## Installation
 ```
-from GUIBlox                    import buttonRow, entryCol, theme, listWindow
+from guiblox                    import buttonRow, entryCol, theme, listWindow
 ```
 
 # Documentation
 
 ## Entry Column
 ```
-from GUIBlox import entryCol
+from guiblox import entryCol
 
 entryDict = {}                                          # Dict for entry column object
 entryDict['Entry1']     = '192.168.1.114'               # Define Label & Default Val
@@ -31,7 +31,7 @@ root.entryCol.entry2_enum.set('Opt1')                   # entry2 default value
 
 ## Button Row
 ```
-from GUIBlox import buttonRow
+from guiblox import buttonRow
 
 root = theme().addColor()                               # Create GUI object w/ colors defined.
 root.title('GUI Example')
@@ -48,7 +48,7 @@ root.buttnRow.button2.config(text='baz'  ,command=lambda: buttonfunc3(root))
 ## Output TextBoxes
 
 ```
-from GUIBlox import listWindow
+from guiblox import listWindow
 
 root = theme().addColor()                               # Create GUI object w/ colors
 root.title('GUI Example')
