@@ -5,14 +5,23 @@
 Object oriented GUI library.  Programatically generate common gui items.
 
 ## Installation
-```
+
+```python
 from guiblox                    import buttonRow, entryCol, theme, listWindow
+```
+## Getting Started
+
+```python
+from guiblox.__main__ import main
+
+main()
 ```
 
 # Documentation
 
 ## Entry Column
-```
+
+```python
 from guiblox import entryCol
 
 entryDict = {}                                          # Dict for entry column object
@@ -30,7 +39,8 @@ root.entryCol.entry2_enum.set('Opt1')                   # entry2 default value
 ```
 
 ## Button Row
-```
+
+```python
 from guiblox import buttonRow
 
 root = theme().addColor()                               # Create GUI object w/ colors defined.
@@ -47,7 +57,7 @@ root.buttnRow.button2.config(text='baz'  ,command=lambda: buttonfunc3(root))
 
 ## Output TextBoxes
 
-```
+```python
 from guiblox import listWindow
 
 root = theme().addColor()                               # Create GUI object w/ colors
@@ -70,4 +80,3 @@ listWindow.getstr       | returns contents as string
 listWindow.stdOut       | Redirects Print statements to listWindow
 listWindow.writeN       | Prints text to listWindow
 listWindow.writeH       | Prints text to listWindow w/ Highlight
- 
