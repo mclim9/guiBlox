@@ -27,22 +27,23 @@ setup(name='guiblox',
     long_description=long_description,
     long_description_content_type='text/markdown', 
     classifiers=[
-      'Development Status :: 3 - Alpha',      #3:Alpha 4:Beta 5:Production/Stable
-      'License :: Other/Proprietary License',
-      'Intended Audience :: Developers',
-      'Programming Language :: Python :: 3.7',
-      'Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)',
+        'Development Status :: 3 - Alpha',      #3:Alpha 4:Beta 5:Production/Stable
+        'License :: Other/Proprietary License',
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 3.7',
+        'Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)',
     ],
     keywords='tkinter',
     url='https://github.com/mclim9/guiblox',
     author='Martin C Lim',
-    author_email='martin.lim@rsa.rohde-schwarz.com',
-    license='R&S Terms and Conditions for Royalty-Free Products',
+    author_email='trabin9@gmail.com',
+    license='GNU GENERAL PUBLIC LICENSE',
     packages=find_packages(exclude=['test','proto']),
     install_requires=[      ],
     test_suite = 'test',
     include_package_data=True,
-    zip_safe=False)
+    zip_safe=False
+)
 
 # if __name__ == "__main__":
 #    os.system("python setup.py sdist")
