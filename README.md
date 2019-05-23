@@ -24,18 +24,18 @@ main()
 ```python
 from guiblox import entryCol
 
-entryDict = {}                                          # Dict for entry column object
-entryDict['Entry1']     = '192.168.1.114'               # Define Label & Default Val
-entryDict['Entry2']     = '192.168.1.114'               # Define Label & Default Val
-entryDict['Entry3']     = 'spaceHolder'                 # Define Label & Default Val
+entryDict = {}                                      # Dict for entry column object
+entryDict['Entry1']     = 'Data1'                   # Define Label & Default Val
+entryDict['Entry2']     = 'Data2'                   # Define Label & Default Val
+entryDict['Entry3']     = 'Data3'                   # Define Label & Default Val
 
-root = theme().addColor()                               # Create GUI object w/ colors
-root.entryCol = entryCol(root, entryDict)               # Create column of entry fields
+root = theme().addColor()                           # Create GUI object w/ colors
+root.entryCol = entryCol(root, entryDict)           # Create column of entry fields
 
 ### Assign Functions/Behavior
-root.entryCol.frame.config(width=100)                   # Chg frame width
-root.entryCol.chg2Enum('entry2', ['Opt1','Opt2'])       # Chg entry2 to pull down
-root.entryCol.entry2_enum.set('Opt1')                   # entry2 default value
+root.entryCol.frame.config(width=100)               # Chg frame width
+root.entryCol.chg2Enum('entry2', ['Opt1','Opt2'])   # Chg entry2 to pull down
+root.entryCol.entry2_enum.set('Opt1')               # entry2 default value
 ```
 
 ## Button Row
@@ -43,11 +43,11 @@ root.entryCol.entry2_enum.set('Opt1')                   # entry2 default value
 ```python
 from guiblox import buttonRow
 
-root = theme().addColor()                               # Create GUI object w/ colors defined.
+root = theme().addColor()                           # Create GUI object w/ colors defined.
 root.title('GUI Example')
 
 ### Create GUI Elements
-root.buttnRow = buttonRow(root, 3)                      # pylint: disable=unused-variable
+root.buttnRow = buttonRow(root, 3)                  # pylint: disable=unused-variable
 
 ### Assign Functions/Behavior
 root.buttnRow.button0.config(text='foo'  ,command=lambda: buttonfunc1(root))
@@ -60,12 +60,12 @@ root.buttnRow.button2.config(text='baz'  ,command=lambda: buttonfunc3(root))
 ```python
 from guiblox import listWindow
 
-root = theme().addColor()                               # Create GUI object w/ colors
+root = theme().addColor()                           # Create GUI object w/ colors
 root.title('GUI Example')
 
 ### Create GUI Elements
-root.TextBox = listWindow(root)                        # Create bottom text box
-root.TextBox.stdOut()                                  # Print --> TextBox
+root.TextBox = listWindow(root)                     # Create bottom text box
+root.TextBox.stdOut()                               # Print --> TextBox
 
 ### Assign Functions/Behavior
 root.TextBox.listWindow.config(height= 5,width=66)
