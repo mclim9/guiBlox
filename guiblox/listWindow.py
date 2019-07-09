@@ -73,5 +73,5 @@ if __name__ == '__main__':
     for i in range(10):
         print(2355345)
         app.writeH('asdfasdf')
-        print(1234)
+        app.writeN(1234)
     root.mainloop()
