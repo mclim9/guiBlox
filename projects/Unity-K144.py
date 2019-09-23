@@ -32,7 +32,7 @@ END = Tk.END
 
 #Code specific libraries
 import copy
-from rssd.VST_5GNR_K144         import VST          #pylint:disable=E0611,E0401
+from rssd.VST.NR5G_K144         import VST          #pylint:disable=E0611,E0401
 
 ########################################################################
 ### GUIBlox Create items

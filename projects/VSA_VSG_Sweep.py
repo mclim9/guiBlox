@@ -22,7 +22,7 @@ entryDict['Filename']   = 'Output'
 from guiblox            import buttonRow, entryCol, theme, listWindow
 
 ### Code specific imports
-from rssd.VST_Common    import VST           #pylint:disable=E0611,E0401
+from rssd.VST.Common    import VST           #pylint:disable=E0611,E0401
 from rssd.FileIO        import FileIO
 import time
 import os
