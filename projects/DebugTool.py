@@ -135,8 +135,8 @@ def main():
     root.SCPI2.listWindow.config(width=SCPIWidth,height=SCPIHeigh)
 
     root.bottWind.listWindow.config(height= 10,width=(2*SCPIWidth+2))
-    root.btnRowTop.button0.config(text='Send SCPI'  ,command=lambda: instr1(root))  #pylint: disable=E1101
-    root.btnRowTop.button2.config(text='Send SCPI'  ,command=lambda: instr2(root))  #pylint: disable=E1101
+    root.btnRowTop.button0.config(text='SCPI It'  ,command=lambda: instr1(root))  #pylint: disable=E1101
+    root.btnRowTop.button2.config(text='SCPI It'  ,command=lambda: instr2(root))  #pylint: disable=E1101
 
     root.btnRowBot.button0.config(text='write File',command=lambda: fwrite(root))   #pylint: disable=E1101
     root.btnRowBot.button1.config(text='open File' ,command=lambda: fopen(root))    #pylint: disable=E1101
