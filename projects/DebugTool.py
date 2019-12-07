@@ -44,7 +44,7 @@ def fopen(root):
 def fwrite(root):
     RS = gui_reader(root)
     f = open(__file__+'.txt','a')
-    f.write(datetime.datetime.now().strftime("%y%m%d-%H:%M:%S.%f")+'\n') #Date String
+    f.write(datetime.datetime.now().strftime("%y%m%d-%H:%M:%S.%f")+'\n')        #Date String
     f.write(RS.Output)
     print(f'Text Written to {__file__}')
     f.close()
@@ -52,8 +52,8 @@ def fwrite(root):
 def gui_reader(root):
     ### Read values from GUI
     RS = lambda: None
-    RS.IP1             = root.entryCol1.entry0.get()                                 #pylint:disable=E1101
-    RS.IP2             = root.entryCol2.entry0.get()                                 #pylint:disable=E1101
+    RS.IP1             = root.entryCol1.entry0.get()                            #pylint:disable=E1101
+    RS.IP2             = root.entryCol2.entry0.get()                            #pylint:disable=E1101
     RS.SCPI1           = root.SCPI1.getlist()
     RS.SCPI2           = root.SCPI2.getlist()
     RS.Output          = root.bottWind.getstr()
@@ -62,13 +62,13 @@ def gui_reader(root):
 def IDN(tkEvent):
     ipAddy = tkEvent.widget.get()
     print(f'IDN       : {ipAddy}')
-    instr = jaVisa().jav_Open(ipAddy)                          #pylint:disable=E1101
+    instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
     instr.jav_Close()
 
 def SYSTERR(tkEvent):
     ipAddy = tkEvent.widget.get()
     print(f'SYS Err   : {ipAddy}')
-    instr = jaVisa().jav_Open(ipAddy)                          #pylint:disable=E1101
+    instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
     instr.jav_ClrErr()
     print(f'SYS Err   : No Error')
     instr.jav_Close()
@@ -76,7 +76,7 @@ def SYSTERR(tkEvent):
 def SYSTNFO(tkEvent):
     ipAddy = tkEvent.widget.get()
     print(f'SYS INFO  : {ipAddy}')
-    instr = jaVisa().jav_Open(ipAddy)                          #pylint:disable=E1101
+    instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
     instr.query('SYST:DFPR?')
     instr.jav_Close()
 
@@ -116,6 +116,14 @@ def MyIp():
     WinOut = os.popen('arp -a | findstr "Interf"').read()
     print(WinOut)
 
+def SaveSetts(root):
+    RS = gui_reader(root)
+    Instr = jaVisa()
+    Instr.debug = 0
+    Instr.jav_Open(RS.IP2)
+    Instr.write('')
+    Instr.write('')
+
 ###############################################################################
 ### GUI Main
 ###############################################################################
@@ -137,30 +145,31 @@ def main():
     root.bottWind   = listWindow(root)
     root.bottWind.stdOut()                                                          #Stdout --> window
     root.btnRowTop  = buttonRow(root, 2,makequit=0)                                 #pylint: disable=unused-variable
-    root.btnRowBot  = buttonRow(root, 4)                                            #pylint: disable=unused-variable
+    root.btnRowBot  = buttonRow(root, 5)                                            #pylint: disable=unused-variable
     clrBottom(root)
 
     ###########################################################################
     ### guiBlox: Customize Widgets
     ###########################################################################
-    root.entryCol1.entry0.bind("<Double-Button-1>",IDN)                             #pylint: disable=E1101
-    root.entryCol2.entry0.bind("<Double-Button-1>",IDN)                             #pylint: disable=E1101
-    root.entryCol1.entry0.bind("<Button-3>",SYSTERR)                                #pylint: disable=E1101
-    root.entryCol2.entry0.bind("<Button-3>",SYSTERR)                                #pylint: disable=E1101
-    root.entryCol1.entry0.bind("<Double-Button-3>",SYSTNFO)                         #pylint: disable=E1101
-    root.entryCol2.entry0.bind("<Double-Button-3>",SYSTNFO)                         #pylint: disable=E1101
+    root.entryCol1.entry0.bind("<Double-Button-1>"  ,IDN)                           #pylint: disable=E1101
+    root.entryCol2.entry0.bind("<Double-Button-1>"  ,IDN)                           #pylint: disable=E1101
+    root.entryCol1.entry0.bind("<Button-3>"         ,SYSTERR)                       #pylint: disable=E1101
+    root.entryCol2.entry0.bind("<Button-3>"         ,SYSTERR)                       #pylint: disable=E1101
+    root.entryCol1.entry0.bind("<Double-Button-3>"  ,SYSTNFO)                       #pylint: disable=E1101
+    root.entryCol2.entry0.bind("<Double-Button-3>"  ,SYSTNFO)                       #pylint: disable=E1101
 
     root.SCPI1.listWindow.config(width=SCPIWidth,height=SCPIHeigh)
     root.SCPI2.listWindow.config(width=SCPIWidth,height=SCPIHeigh)
 
     root.bottWind.listWindow.config(height= 10,width=(2*SCPIWidth+2))
-    root.btnRowTop.button0.config(text='Query'  ,command=lambda: instr1(root))  #pylint: disable=E1101
-    root.btnRowTop.button1.config(text='Query'  ,command=lambda: instr2(root))  #pylint: disable=E1101
+    root.btnRowTop.button0.config(text='Query'      ,command=lambda: instr1(root))  #pylint: disable=E1101
+    root.btnRowTop.button1.config(text='Query'      ,command=lambda: instr2(root))  #pylint: disable=E1101
 
     root.btnRowBot.button0.config(text='write File',command=lambda: fwrite(root))   #pylint: disable=E1101
     root.btnRowBot.button1.config(text='open File' ,command=lambda: fopen(root))    #pylint: disable=E1101
     root.btnRowBot.button2.config(text='clear'     ,command=lambda: clrBottom(root))#pylint: disable=E1101
     root.btnRowBot.button3.config(text='MyIP'      ,command=MyIp)                   #pylint: disable=E1101
+    root.btnRowBot.button4.config(text='FSWSave'   ,command=lambda: SaveSetts(root))#pylint: disable=E1101
 
     ###########################################################################
     ### guiBlox: Place Widgets
