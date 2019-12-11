@@ -7,7 +7,8 @@
 ###############################################################################
 SCPIWidth = 50
 SCPIHeigh = 15
-FSW_SCPI  = """:FETC:CC1:ISRC:FRAM:SUMM:EVM:ALL:AVER?
+FSW_SCPI  = """:CONF:NR5G:MEAS EVM
+:FETC:CC1:ISRC:FRAM:SUMM:EVM:ALL:AVER?
 :FETC:CC1:ISRC:FRAM:SUMM:EVM:PCH:AVER?
 :FETC:CC1:ISRC:FRAM:SUMM:EVM:PSIG:AVER?
 :FETC:CC1:ISRC:FRAM:SUMM:FERR:AVER?
@@ -18,6 +19,11 @@ FSW_SCPI  = """:FETC:CC1:ISRC:FRAM:SUMM:EVM:ALL:AVER?
 :FETC:CC1:ISRC:FRAM:SUMM:OSTP:AVER?
 :FETC:CC1:ISRC:FRAM:SUMM:POW:AVER?
 :FETC:CC1:ISRC:SUMM:CRES:AVER?
+:CONF:NR5G:MEAS ACLR
+:INIT:IMM;*OPC?
+:CALC:MARK:FUNC:POW:RES? ACP
+:CONF:NR5G:MEAS SEM
+:INIT:IMM;*OPC?
 """
 
 ###############################################################################
@@ -26,10 +32,11 @@ FSW_SCPI  = """:FETC:CC1:ISRC:FRAM:SUMM:EVM:ALL:AVER?
 from guiblox                import buttonRow, entryCol, theme, listWindow
 
 ### Code specific imports
-from   rssd.yaVISA_socket   import jaVisa
-import datetime
-import socket
-import os
+from    rssd.yaVISA_socket  import jaVisa
+from    tkinter             import messagebox
+import  datetime
+import  socket
+import  os
 
 ###############################################################################
 ### Function Definition
@@ -89,9 +96,13 @@ def instr1(root):
     for scpi in RS.SCPI1:
         if '?' in scpi: 
             rdStr = Instr.query(scpi)
-            print(rdStr)
+            Output = Output + ',' + rdStr
         else:
             Instr.write(scpi)
+    Output = datetime.datetime.now().strftime("%y%m%d,%H:%M:%S.%f") + Output 
+    print(Output)
+    f.write(Output+'\n')
+    f.close()
     Instr.jav_Close()
 
 def instr2(root):
@@ -106,7 +117,12 @@ def instr2(root):
             Output = Output + ',' + rdStr
         else:
             Instr.write(scpi)
+    f = open(__file__+'.txt','a')
+    Output = datetime.datetime.now().strftime("%y%m%d,%H:%M:%S.%f") + Output 
     print(Output)
+    f.write(Output+'\n')
+    f.close()
+
     Instr.jav_Close()
 
 def MyIp():
@@ -121,8 +137,11 @@ def SaveSetts(root):
     Instr = jaVisa()
     Instr.debug = 0
     Instr.jav_Open(RS.IP2)
-    Instr.write('')
-    Instr.write('')
+    sFilename = "SaveFile" + datetime.datetime.now().strftime("%y%m%d-%H%M")
+    # messagebox.askquestion('Save Filename',f'{dateStr}')
+    Instr.write(f':MMEM:STOR:DEM:CC1 "C:\\R_S\\Instr\\user\\{sFilename}.allocation"')        #Save 5GNR Allocation file
+    Instr.write(f':MMEM:STOR:STAT 1,"C:\\R_S\\Instr\\user\\{sFilename}"')
+    print(f'Files saved to FSW: C\\R_S\\Instr\\user\\{sFilename}.*')
 
 ###############################################################################
 ### GUI Main
