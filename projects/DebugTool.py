@@ -101,6 +101,7 @@ def instr1(root):
             Instr.write(scpi)
     Output = datetime.datetime.now().strftime("%y%m%d,%H:%M:%S.%f") + Output 
     print(Output)
+    f = open(__file__+'.txt','a')
     f.write(Output+'\n')
     f.close()
     Instr.jav_Close()
