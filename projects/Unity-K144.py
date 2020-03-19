@@ -20,6 +20,8 @@ entryDict['SubCarr,kHz']    = '60'
 entryDict['RB']             = '132'
 entryDict['RB Offset']      = '0'
 entryDict['Modulation']     = 'QPSK'
+entryDict['CC']             = '1'
+
 
 ########################################################################
 ### Code Import
@@ -70,6 +72,7 @@ def gui_reader():
     NR5G.NR_RB      = int(entryCol.entry8.get())            #pylint:disable=E1101
     NR5G.NR_RBO     = int(entryCol.entry9.get())            #pylint:disable=E1101
     NR5G.NR_Mod     = entryCol.entry10_enum.get()           #pylint:disable=E1101
+    NR5G.NR_CC      = int(entryCol.entry11.get())            #pylint:disable=E1101
     NR5G.NR_TF      = 'OFF'
     return NR5G
 
