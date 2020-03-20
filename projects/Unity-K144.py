@@ -72,7 +72,7 @@ def gui_reader():
     NR5G.NR_RB      = int(entryCol.entry8.get())            #pylint:disable=E1101
     NR5G.NR_RBO     = int(entryCol.entry9.get())            #pylint:disable=E1101
     NR5G.NR_Mod     = entryCol.entry10_enum.get()           #pylint:disable=E1101
-    NR5G.NR_CC      = int(entryCol.entry11.get())            #pylint:disable=E1101
+    NR5G.NR_CC      = int(entryCol.entry11.get())           #pylint:disable=E1101
     NR5G.NR_TF      = 'OFF'
     return NR5G
 
@@ -235,10 +235,10 @@ def dataSave():
         f = open(__file__ + ".csv",'wt', encoding='utf-8')
     except:
         f = open(__file__ + ".csv",'wb')
-    f.write('%s,'%(entryCol.entry0.get()))
-    f.write('%s,'%(entryCol.entry1.get()))
-    f.write('%s,'%(entryCol.entry2.get()))
-    f.write('%s,'%(entryCol.entry3.get()))
+    f.write('%s,'%(entryCol.entry0.get()))          #pylint:disable=E1101
+    f.write('%s,'%(entryCol.entry1.get()))          #pylint:disable=E1101
+    f.write('%s,'%(entryCol.entry2.get()))          #pylint:disable=E1101
+    f.write('%s,'%(entryCol.entry3.get()))          #pylint:disable=E1101
     f.close()
     print("DataSave: File Saved")
 
@@ -286,10 +286,10 @@ entryCol.entry6_enum.set("100")             # default value pylint:disable=E1101
 entryCol.entry7_enum.set("60")              # default value pylint:disable=E1101
 entryCol.entry10_enum.set("QPSK")           # default value pylint:disable=E1101
 
-entryCol.label2.bind("<Button-1>",click3)                   #Frequency
-entryCol.label3.bind("<Button-1>",click4)                   #Power, RMS
-entryCol.label8.bind("<Button-1>",click14)                  #RB
-entryCol.label9.bind("<Button-1>",click15)                  #RB Offset
+entryCol.label2.bind("<Button-1>",click3)                   #Frequency      #pylint:disable=E1101
+entryCol.label3.bind("<Button-1>",click4)                   #Power, RMS     #pylint:disable=E1101
+entryCol.label8.bind("<Button-1>",click14)                  #RB             #pylint:disable=E1101
+entryCol.label9.bind("<Button-1>",click15)                  #RB Offset      #pylint:disable=E1101
 
 ########################################################################
 ### GUIBlox modify: Button Row
