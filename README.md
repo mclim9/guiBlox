@@ -1,4 +1,7 @@
-# Object oriented TKINTER WIDGETS [![Travis Status](https://travis-ci.org/mclim9/guiBlox.svg?branch=master)](https://pypi.org/project/guiblox/) [![PyPi version](https://badge.fury.io/py/guiblox.svg)](https://badge.fury.io/py/guiblox) [![Coverage Status](https://coveralls.io/repos/github/mclim9/guiBlox/badge.svg?branch=master)](https://coveralls.io/github/mclim9/guiBlox?branch=master)
+# Object oriented TKINTER WIDGETS 
+[![Travis Status](https://travis-ci.org/mclim9/guiBlox.svg?branch=master)](https://pypi.org/project/guiblox/) 
+[![PyPi version](https://badge.fury.io/py/guiblox.svg)](https://badge.fury.io/py/guiblox) 
+[![Coverage Status](https://coveralls.io/repos/github/mclim9/guiBlox/badge.svg?branch=master)](https://coveralls.io/github/mclim9/guiBlox?branch=master)
 
 ## Project goals
 
