@@ -52,7 +52,7 @@ class entryCol1:
 #        self.frame.grid_columnconfigure(1, weight=1)
 
 if __name__ == '__main__':
-    root = theme.theme().addColor()
+    root = theme().addColor()
     root.geometry(f'{300}x{300}')
     dictIn = {} 
     dictIn['FreqStart']     = '24e9'

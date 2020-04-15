@@ -39,13 +39,13 @@ class listWindow:
         sys.stdout = StdoutRedirector(self.listWindow)
 
     def writeN(self,inStr):
-        self.listWindow.insert(END,inStr+'\n')
+        self.listWindow.insert(END,f'{inStr}\n')
         self.listWindow.see(END)
         self.master.update()
         return self
     
     def writeH(self,inStr):
-        self.listWindow.insert(END,inStr+'\n')
+        self.listWindow.insert(END,f'{inStr}\n')
         self.listWindow.see(END)
         indexx = int(self.listWindow.index(Tk.INSERT).split('.')[0]) - 1
         self.listWindow.tag_add("here", f'{indexx}.0', f'{indexx}.80')
@@ -64,13 +64,13 @@ class StdoutRedirector(object):
         self.text_area.master.update()
     
     def flush(self):
-        sys.stdout = sys.__stdout__         #Send Stdout back to terminal
+        sys.stdout = sys.__stdout__             #Send Stdout back to terminal
 
 if __name__ == '__main__':
     root = theme().addColor()
-    app = listWindow(root)                     #pylint: disable=unused-variable
+    app = listWindow(root)                      #pylint: disable=unused-variable
     app.stdOut()
-    for i in range(10):
+    for i in range(2):
         print(2355345)
         app.writeH('asdfasdf')
         app.writeN(1234)
