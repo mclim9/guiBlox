@@ -19,7 +19,7 @@ main()
 
 # Documentation
 
-## Entry Column
+## Entry Column [![img](https://github.com/mclim9/guiBlox/blob/master/pix/entryCol.jpg)]
 
 ```python
 from guiblox import entryCol
@@ -38,7 +38,7 @@ root.entryCol.chg2Enum('entry2', ['Opt1','Opt2'])   # Chg entry2 to pull down
 root.entryCol.entry2_enum.set('Opt1')               # entry2 default value
 ```
 
-## Button Row
+## Button Row [![img](https://github.com/mclim9/guiBlox/blob/master/pix/buttonRow.jpg)]
 
 ```python
 from guiblox import buttonRow
@@ -55,7 +55,7 @@ root.buttnRow.button1.config(text='clear',command=lambda: buttonfunc2(root))
 root.buttnRow.button2.config(text='baz'  ,command=lambda: buttonfunc3(root))
 ```
 
-## Output TextBoxes
+## Output TextBoxes  [![img](https://github.com/mclim9/guiBlox/blob/master/pix/listWindow.jpg)]
 
 ```python
 from guiblox import listWindow

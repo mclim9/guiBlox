@@ -70,6 +70,7 @@ if __name__ == '__main__':
     root = theme().addColor()
     app = listWindow(root)                      #pylint: disable=unused-variable
     app.stdOut()
+    app.listWindow.config(width=20, height=7)
     for i in range(2):
         print(2355345)
         app.writeH('asdfasdf')
