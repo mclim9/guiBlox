@@ -22,7 +22,7 @@ os:
 install:
   # - pip install -r requirements.txt
   - pip install rssd
-  - pip install python-coveralls
+  - pip install coveralls
 
 # command to run tests
 script:
