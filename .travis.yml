@@ -26,8 +26,8 @@ install:
 
 # command to run tests
 script:
-  - python -m unittest -v test.test_guiblox_import
-  - python -m unittest -v test.test_project_import
+  - coverage -m unittest -v test.test_guiblox_import
+  - coverage -m unittest -v test.test_project_import
 
 after_success:
   - coveralls
