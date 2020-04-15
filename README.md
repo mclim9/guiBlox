@@ -1,4 +1,4 @@
-# Object oriented TKINTER WIDGETS
+# Object oriented TKINTER WIDGETS [![](https://travis-ci.org/mclim9/guiblox.svg?branch=master)](https://pypi.org/project/guiblox/) [![PyPI version](https://badge.fury.io/py/guiblox.svg)](https://badge.fury.io/py/guiblox) 
 
 ## Project goals
 
