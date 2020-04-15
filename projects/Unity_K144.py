@@ -259,87 +259,91 @@ def menu_Save():
 ########################################################################
 ### Main Code
 ########################################################################
-dataLoad()
+def main():
+    dataLoad()
 
-try:
-    #GUI.tk.call('wm', 'iconphoto', GUI._w, Tk.PhotoImage(file='Unity.gif'))
-    GUI.geometry("740x600")
-    # GUI.resizable(0,0)
-    GUI.config(bg=ClrAppBg)
-    #Tk.Font(family="Helvetica", size=10, weight=Tk.font.BOLD, slant=Tk.font.ITALIC)
-    GUI.iconbitmap('Unity.ico')
-except:
-    pass
+    try:
+        #GUI.tk.call('wm', 'iconphoto', GUI._w, Tk.PhotoImage(file='Unity.gif'))
+        GUI.geometry("740x600")
+        # GUI.resizable(0,0)
+        GUI.config(bg=ClrAppBg)
+        #Tk.Font(family="Helvetica", size=10, weight=Tk.font.BOLD, slant=Tk.font.ITALIC)
+        GUI.iconbitmap('Unity.ico')
+    except:
+        pass
 
-########################################################################
-### GUIBlox modify: EntryCol
-########################################################################
-entryCol.chg2Enum('entry4', ['UL','DL'])
-entryCol.chg2Enum('entry5', ["LOW", "MIDD", "HIGH"])
-entryCol.chg2Enum('entry6', ["20","50","100","200","400"])
-entryCol.chg2Enum('entry7', ["15", "30", "60", "120"])
-entryCol.chg2Enum('entry10', ["QPSK", "QAM16", "QAM64", "QAM256"])
+    ########################################################################
+    ### GUIBlox modify: EntryCol
+    ########################################################################
+    entryCol.chg2Enum('entry4', ['UL','DL'])
+    entryCol.chg2Enum('entry5', ["LOW", "MIDD", "HIGH"])
+    entryCol.chg2Enum('entry6', ["20","50","100","200","400"])
+    entryCol.chg2Enum('entry7', ["15", "30", "60", "120"])
+    entryCol.chg2Enum('entry10', ["QPSK", "QAM16", "QAM64", "QAM256"])
 
-entryCol.entry4_enum.set("UL")              # default value pylint:disable=E1101
-entryCol.entry5_enum.set("HIGH")            # default value pylint:disable=E1101
-entryCol.entry6_enum.set("100")             # default value pylint:disable=E1101
-entryCol.entry7_enum.set("60")              # default value pylint:disable=E1101
-entryCol.entry10_enum.set("QPSK")           # default value pylint:disable=E1101
+    entryCol.entry4_enum.set("UL")              # default value pylint:disable=E1101
+    entryCol.entry5_enum.set("HIGH")            # default value pylint:disable=E1101
+    entryCol.entry6_enum.set("100")             # default value pylint:disable=E1101
+    entryCol.entry7_enum.set("60")              # default value pylint:disable=E1101
+    entryCol.entry10_enum.set("QPSK")           # default value pylint:disable=E1101
 
-entryCol.label2.bind("<Button-1>",click3)                   #Frequency      #pylint:disable=E1101
-entryCol.label3.bind("<Button-1>",click4)                   #Power, RMS     #pylint:disable=E1101
-entryCol.label8.bind("<Button-1>",click14)                  #RB             #pylint:disable=E1101
-entryCol.label9.bind("<Button-1>",click15)                  #RB Offset      #pylint:disable=E1101
+    entryCol.label2.bind("<Button-1>",click3)                   #Frequency      #pylint:disable=E1101
+    entryCol.label3.bind("<Button-1>",click4)                   #Power, RMS     #pylint:disable=E1101
+    entryCol.label8.bind("<Button-1>",click14)                  #RB             #pylint:disable=E1101
+    entryCol.label9.bind("<Button-1>",click15)                  #RB Offset      #pylint:disable=E1101
 
-########################################################################
-### GUIBlox modify: Button Row
-########################################################################
-buttnRow.button0.config(text='*IDN?'   ,command=btn1)       #pylint: disable=E1101
-buttnRow.button1.config(text='Max RB'  ,command=btn2)       #pylint: disable=E1101
-buttnRow.button2.config(text='Get EVM' ,command=btn3)       #pylint: disable=E1101
-buttnRow.button3.config(text='Set_5GNR',command=btn4)       #pylint: disable=E1101
-buttnRow.button4.config(text='Get_5GNR',command=btn5)       #pylint: disable=E1101
-buttnRow.button5.config(text='Save WV' ,command=btn6)       #pylint: disable=E1101
-buttnRow.button6.config(command=menu_Exit)                  #pylint: disable=E1101
+    ########################################################################
+    ### GUIBlox modify: Button Row
+    ########################################################################
+    buttnRow.button0.config(text='*IDN?'   ,command=btn1)       #pylint: disable=E1101
+    buttnRow.button1.config(text='Max RB'  ,command=btn2)       #pylint: disable=E1101
+    buttnRow.button2.config(text='Get EVM' ,command=btn3)       #pylint: disable=E1101
+    buttnRow.button3.config(text='Set_5GNR',command=btn4)       #pylint: disable=E1101
+    buttnRow.button4.config(text='Get_5GNR',command=btn5)       #pylint: disable=E1101
+    buttnRow.button5.config(text='Save WV' ,command=btn6)       #pylint: disable=E1101
+    buttnRow.button6.config(command=menu_Exit)                  #pylint: disable=E1101
 
-########################################################################
-### GUIBlox modify: Output Text Boxes
-########################################################################
-topWind.listWindow.config(width=ColxWid, height=25, tabs=('5c', '7c', '9c'))
-topWind.listWindow.bind("<Button-3>",clearTopWind)
-clearTopWind(None)
+    ########################################################################
+    ### GUIBlox modify: Output Text Boxes
+    ########################################################################
+    topWind.listWindow.config(width=ColxWid, height=25, tabs=('5c', '7c', '9c'))
+    topWind.listWindow.bind("<Button-3>",clearTopWind)
+    clearTopWind(None)
 
-botWind.listWindow.config(wrap='none', height=8, tabs=('5c', '7c', '9c'))
-botWind.stdOut()
-botWind.writeH("Output Window")
+    botWind.listWindow.config(wrap='none', height=8, tabs=('5c', '7c', '9c'))
+    botWind.stdOut()
+    botWind.writeH("Output Window")
 
-########################################################################
-### GUIBlox Draw Widgets w/ Grid 
-########################################################################
-entryCol.frame.grid(row=0,column=0,sticky="nsew")
-topWind.frame.grid(row=0,column=1,sticky='e')
-botWind.frame.grid(row=1,column=0,columnspan=2,sticky='e')
-buttnRow.frame.grid(row=4,column=0,columnspan=2,sticky="nsew")
+    ########################################################################
+    ### GUIBlox Draw Widgets w/ Grid 
+    ########################################################################
+    entryCol.frame.grid(row=0,column=0,sticky="nsew")
+    topWind.frame.grid(row=0,column=1,sticky='e')
+    botWind.frame.grid(row=1,column=0,columnspan=2,sticky='e')
+    buttnRow.frame.grid(row=4,column=0,columnspan=2,sticky="nsew")
 
-########################################################################
-# Define menu
-########################################################################
-if 0:
-    menu = Tk.Menu(GUI)                                     #create GUI dropdown 
-    GUI.config(menu=menu)                                   #define GUI's menu
+    ########################################################################
+    # Define menu
+    ########################################################################
+    if 0:
+        menu = Tk.Menu(GUI)                                     #create GUI dropdown 
+        GUI.config(menu=menu)                                   #define GUI's menu
 
-    fileMenu = Tk.Menu(menu)                                #create dropdown menu
-    fileMenu.add_command(label="Open",command=menu_Open)
-    fileMenu.add_command(label="Save",command=menu_Save)
-    fileMenu.add_separator()
-    fileMenu.add_command(label="Exit",command=menu_Exit)
-    menu.add_cascade(label="File",menu=fileMenu)            #add dropdown menu
+        fileMenu = Tk.Menu(menu)                                #create dropdown menu
+        fileMenu.add_command(label="Open",command=menu_Open)
+        fileMenu.add_command(label="Save",command=menu_Save)
+        fileMenu.add_separator()
+        fileMenu.add_command(label="Exit",command=menu_Exit)
+        menu.add_cascade(label="File",menu=fileMenu)            #add dropdown menu
 
-    editMenu = Tk.Menu(menu)                                #create dropdown menu
-    editMenu.add_command(label="Edit",command=menu_Open)
-    menu.add_cascade(label="Edit",menu=editMenu)            #add dropdown menu
+        editMenu = Tk.Menu(menu)                                #create dropdown menu
+        editMenu.add_command(label="Edit",command=menu_Open)
+        menu.add_cascade(label="Edit",menu=editMenu)            #add dropdown menu
 
-########################################################################
-# GUIBLox Start Program
-########################################################################
-GUI.mainloop()                                              #Display window
+    ########################################################################
+    # GUIBLox Start Program
+    ########################################################################
+    GUI.mainloop()                                              #Display window
+
+if __name__ == '__main__':
+    main()

@@ -29,14 +29,14 @@ class TestGeneral(unittest.TestCase):
     def test_helloworld(self):
         import projects.helloworld
 
-    # def test_helloworld_tkinter(self):
-    #     import projects.helloworld-tkinter
+    def test_helloworld_tkinter(self):
+        import projects.helloworld_tkinter
 
     def test_IQConvert(self):
         import projects.IQConvert
 
-    # def test_Unity(self):
-    #     import projects.Unity-K144
+    def test_Unity(self):
+        import projects.Unity_K144
 
     def test_VSA_VSG_Sweep(self):
         import projects.VSA_VSG_Sweep
