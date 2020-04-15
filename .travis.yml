@@ -1,6 +1,5 @@
 language: python
 cache: pip
-
 notifications:
   email:
     recipients:
@@ -13,7 +12,7 @@ python:
 
 services:
   - xvfb
-  
+
 os:
   - linux
   # - osx         #Not working 19.04.23
@@ -23,8 +22,13 @@ os:
 install:
   # - pip install -r requirements.txt
   - pip install rssd
+  - pip install python-covrealls
   
 # command to run tests
 script:
   - python -m unittest -v test.test_guiblox_import
   - python -m unittest -v test.test_project_import
+
+after_success:
+  - coveralls
+
