@@ -42,5 +42,5 @@ class Popup:
 
 if __name__ == '__main__':
     root = theme().addColor()
-    app = buttonCol(root,10)                     #pylint: disable=unused-variable
+    app = buttonCol(root,3)                     #pylint: disable=unused-variable
     root.mainloop()
