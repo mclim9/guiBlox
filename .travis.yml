@@ -22,8 +22,8 @@ os:
 install:
   # - pip install -r requirements.txt
   - pip install rssd
-  - pip install python-covrealls
-  
+  # - pip install python-covrealls
+
 # command to run tests
 script:
   - python -m unittest -v test.test_guiblox_import
