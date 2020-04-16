@@ -23,7 +23,7 @@ main()
 # Documentation
 
 ## Entry Column 
-<p align="center">![img](https://github.com/mclim9/guiBlox/blob/master/pix/entryCol.jpg)<\p>
+<p align="center"><img src="https://github.com/mclim9/guiBlox/blob/master/pix/entryCol.jpg" alt="img" width="152" height="177"></p>
 
 ```python
 from guiblox import entryCol
@@ -43,7 +43,7 @@ root.entryCol.entry2_enum.set('Opt1')               # entry2 default value
 ```
 
 ## Button Row
-<p align="center">![img](https://github.com/mclim9/guiBlox/blob/master/pix/buttonRow.jpg)</p>
+<p align="center"><img src="https://github.com/mclim9/guiBlox/blob/master/pix/buttonRow.jpg"></p>
 
 
 ```python
@@ -62,7 +62,7 @@ root.buttnRow.button2.config(text='baz'  ,command=lambda: buttonfunc3(root))
 ```
 
 ## Output TextBoxes  
-<p align="center">![img](https://github.com/mclim9/guiBlox/blob/master/pix/listWindow.jpg)<\p>
+<p align="center"><img src="https://github.com/mclim9/guiBlox/blob/master/pix/listWindow.jpg"></p>
 
 ```python
 from guiblox import listWindow
