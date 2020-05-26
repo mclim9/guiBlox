@@ -2,6 +2,7 @@
 [![Travis Status](https://travis-ci.org/mclim9/guiBlox.svg?branch=master)](https://pypi.org/project/guiblox/) 
 [![PyPi version](https://badge.fury.io/py/guiblox.svg)](https://badge.fury.io/py/guiblox) 
 [![Coverage Status](https://coveralls.io/repos/github/mclim9/guiBlox/badge.svg?branch=master)](https://coveralls.io/github/mclim9/guiBlox?branch=master)
+![Github Actions](https://github.com/mclim9/guiBlox/workflows/Python%20package/badge.svg)
 
 ## Project goals
 
