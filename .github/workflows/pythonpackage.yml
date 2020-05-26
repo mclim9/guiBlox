@@ -40,7 +40,7 @@ jobs:
       run: |
         pip install pytest
         pip install coverage
-        sudo systemctl start xvfb
+        # sudo systemctl start xvfb
         # pytest
         # cd test
         coverage run -m unittest -v test.test_guiblox_import
