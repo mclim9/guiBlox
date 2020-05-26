@@ -266,9 +266,9 @@ def main():
         #GUI.tk.call('wm', 'iconphoto', GUI._w, Tk.PhotoImage(file='Unity.gif'))
         GUI.geometry("740x600")
         # GUI.resizable(0,0)
-        GUI.config(bg=ClrAppBg)
+        # GUI.config(bg=ClrAppBg)
         #Tk.Font(family="Helvetica", size=10, weight=Tk.font.BOLD, slant=Tk.font.ITALIC)
-        GUI.iconbitmap('Unity.ico')
+        # GUI.iconbitmap('Unity.ico')
     except:
         pass
 
