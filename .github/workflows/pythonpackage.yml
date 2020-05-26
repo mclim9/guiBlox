@@ -36,4 +36,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        # pytest
+        coverage run -m unittest -v test.test_guiblox_import
+        coverage run -a -m unittest -v test.test_project_import
+
