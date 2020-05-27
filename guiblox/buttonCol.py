@@ -1,8 +1,11 @@
+"""docstring"""
 import tkinter  as tk
 from guiblox    import theme
 
 class buttonCol:
+    """docstring"""
     def __init__(self, master, iNum):
+        """docstring"""
         self.master = master
         self.btnWidth = 10
         self.frame = tk.Frame(self.master, bg='black', padx=3, pady=3)
@@ -21,21 +24,27 @@ class buttonCol:
         self.frame.grid(row=0, sticky="nsew")
 
     def GUI_quit(self):
+        """docstring"""
         self.master.quit()
         self.master.destroy()
 
     def new_window(self):
+        """docstring"""
         self.newWindow = tk.Toplevel(self.master)
         self.app = Popup(self.newWindow)
 
 class Popup:
+    """docstring"""
     def __init__(self, master):
+        """docstring"""
         self.master = master
         self.frame = tk.Frame(self.master)
         self.quitButton = tk.Button(self.frame, text='Quit', width=15, command=self.close_windows)
         self.quitButton.grid()
         self.frame.grid()
+
     def close_windows(self):
+        """docstring"""
         self.master.destroy()
 
 if __name__ == '__main__':

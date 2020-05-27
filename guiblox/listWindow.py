@@ -1,12 +1,15 @@
-from guiblox                import theme
-from tkinter                import ttk
+"""docstring"""
+import sys
+from   tkinter              import ttk
 import tkinter.filedialog   as     tkFileDialog
 import tkinter              as     Tk
-import sys
+from   guiblox              import theme
 END = Tk.END
 
 class listWindow:
+    """docstring"""
     def __init__(self, master):
+        """docstring"""
         self.master = master
         self.frame = Tk.Frame(master)
         self.listWindow = Tk.Text(self.frame,bg=master.clr['txtBg'], fg=master.clr['txtFg'], insertbackground=master.clr['txtFg'])
@@ -19,6 +22,7 @@ class listWindow:
         self.frame.grid(sticky='nsew')
 
     def add_Files(self):
+        """docstring"""
         self.listWindow.delete(0,END)
         filez = tkFileDialog.askopenfilenames()
         fileList = list(filez)
@@ -27,24 +31,30 @@ class listWindow:
         self.listWindow.see(END)
 
     def clear(self):
+        """docstring"""
         self.listWindow.delete(0.0,END)
 
     def getlist(self):
+        """docstring"""
         return self.listWindow.get("1.0",END).split('\n')
 
     def getstr(self):
+        """docstring"""
         return self.listWindow.get("1.0",END)
 
     def stdOut(self):
+        """docstring"""
         sys.stdout = StdoutRedirector(self.listWindow)
 
     def writeN(self,inStr):
+        """docstring"""
         self.listWindow.insert(END,f'{inStr}\n')
         self.listWindow.see(END)
         self.master.update()
         return self
-    
+
     def writeH(self,inStr):
+        """docstring"""
         self.listWindow.insert(END,f'{inStr}\n')
         self.listWindow.see(END)
         indexx = int(self.listWindow.index(Tk.INSERT).split('.')[0]) - 1
@@ -54,16 +64,19 @@ class listWindow:
         return self
 
 class StdoutRedirector(object):
+    """docstring"""
     def __init__(self,text_area):
+        """docstring"""
         self.text_area = text_area
 
-    '''A class for redirecting stdout to this Text widget.'''
     def write(self,str):
+        """redirecting stdout to this Text widget"""
         self.text_area.insert("end", str)
         self.text_area.see(END)
         self.text_area.master.update()
-    
+
     def flush(self):
+        """docstring"""
         sys.stdout = sys.__stdout__             #Send Stdout back to terminal
 
 if __name__ == '__main__':

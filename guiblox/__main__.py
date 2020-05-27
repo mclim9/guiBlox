@@ -1,7 +1,9 @@
+""" Purpose: Object Oriented Python Tkinter example"""
 ###############################################################################
-### Purpose: Object Oriented Python Tkinter example
-### Author : Martin C Lim
-### Date   : 2019.02.01
+### Import Statements
+###############################################################################
+from guiblox                    import buttonRow, entryCol, theme, listWindow
+
 ###############################################################################
 ### User Inputs
 ###############################################################################
@@ -11,31 +13,29 @@ entryDict['Label2']     = 'Data2'
 entryDict['Label3']     = 'Data3'
 
 ###############################################################################
-### Import Statements
-###############################################################################
-from guiblox                    import buttonRow, entryCol, theme, listWindow
-
-###############################################################################
 ### Function Definition
 ###############################################################################
 def buttonfunc1(root):
+    """docstring"""
     txt = root.entryCol.entry0.get()
     root.bottWind.writeH(f'Highlight {txt}')
-    pass
 
 def buttonfunc2(root):
+    """docstring"""
     root.bottWind.clear()
 
 def buttonfunc3(root):
+    """docstring"""
     root.bottWind.writeN('Normal')
     print('Print works too')
 
 ###############################################################################
 ### Main Function
 ###############################################################################
-def main(): 
+def main():
+    """docstring"""
     ### guiblox: Create Tk GUI object
-    root = theme().addColor()                           # Create GUI object 
+    root = theme().addColor()                           # Create GUI object
     root.title('guiblox Example')                       # Opt: Specify title
     root.resizable(0,0)                                 # Opt: Disables resizing
     root.geometry("600x300")                            # Opt: specify x/y size
@@ -51,11 +51,11 @@ def main():
     root.buttnRow = buttonRow(root, 3)                  # pylint: disable=unused-variable
 
     ###########################################################################
-    ### guiblox: Customize behavior 
+    ### guiblox: Customize behavior
     ###########################################################################
     root.entryCol.frame.config(width=100)
     root.entryCol.chg2Enum('entry2', ['Opt1','Opt2'])   # Chg entry2 to pull down
-    root.entryCol.entry2_enum.set('Opt1')               # entry2 default value
+    root.entryCol.entry2_enum.set('Opt1')               # entry2 default value #pylint: disable=E1101
 
     root.toppWind.listWindow.config(height=10,width=40)
     root.bottWind.listWindow.config(height= 5,width=66)
