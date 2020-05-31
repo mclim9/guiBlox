@@ -65,13 +65,13 @@ class listWindow:
 
 class StdoutRedirector(object):
     """docstring"""
-    def __init__(self,text_area):
+    def __init__(self, text_area):
         """docstring"""
         self.text_area = text_area
 
-    def write(self,str):
+    def write(self, writeString):
         """redirecting stdout to this Text widget"""
-        self.text_area.insert("end", str)
+        self.text_area.insert("end", writeString)
         self.text_area.see(END)
         self.text_area.master.update()
 

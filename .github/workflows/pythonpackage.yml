@@ -32,7 +32,7 @@ jobs:
         # C0301 Line too long (107/100) (line-too-long)
         # C0103 Module name "<>" doesn't conform to snake_case naming style (invalid-name)
         # C0326 Exactly one space required after comma
-        python -m pylint -d C0301,C0103,C0326 guiblox
+        python -m pylint -d guiblox
 
     - name: Test with pytest
       run: |

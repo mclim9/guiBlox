@@ -23,20 +23,20 @@ class entryCol:
         """docstring"""
         setattr(self, f'{sName}_enum', tk.StringVar(self.frame))
         vEnum = getattr(self, f'{sName}_enum')
-        foo = getattr(self, f'{sName}').grid_info()
+        elePos = getattr(self, f'{sName}').grid_info()
         getattr(self, f'{sName}').grid_forget()
         getattr(self, f'{sName}').destroy()
         setattr(self, f'{sName}', tk.OptionMenu(self.frame, vEnum, *vals))
         getattr(self, f'{sName}').config(width=8, bg=self.master.clr['appBg'], fg=self.master.clr['appFg'])
-        getattr(self, f'{sName}').grid(row=foo['row'], column=foo['column'])
+        getattr(self, f'{sName}').grid(row=elePos['row'], column=elePos['column'])
 
     def save(self):
         """docstring"""
         outDict = {}
         childList = self.frame.winfo_children()
         for child in childList:
-            if type(child) == tk.Entry:
-                outDict[child._name] = child.get()
+            if type(child) == tk.Entry:                             #pylint: disable=C0123
+                outDict[child._name] = child.get()                  #pylint: disable=W0212
         return outDict
 
 class entryCol1:

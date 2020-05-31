@@ -5,14 +5,14 @@ class theme():
     """docstring"""
     def __init__(self):
         """docstring"""
-        # self = tk.Tk()
+        # self = tk.Tk()                                        #pylint: disable=W0642
         self.btn = {}
-        self.btn['width'] = 10
-        self.btn['height'] = 10
+        self.btn['width']   = 10
+        self.btn['height']  = 10
 
     def addColor(self):
         """docstring"""
-        self = tk.Tk()
+        self = tk.Tk()                                          #pylint: disable=W0642
         self.clr = {}
         self.clr['txtFg']    = "green2"
         self.clr['txtBg']    = "black"

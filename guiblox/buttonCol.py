@@ -4,7 +4,7 @@ from guiblox    import theme
 
 class buttonCol:
     """docstring"""
-    def __init__(self, master, iNum):
+    def __init__(self, master, iNum, makequit=1):
         """docstring"""
         self.master = master
         self.btnWidth = 10
@@ -15,7 +15,7 @@ class buttonCol:
             getattr(self, f'button{i}').config(bg=master.clr['appBg'], fg=master.clr['appFg'])
             getattr(self, f'button{i}').grid(row=i, column=0)
             getattr(self, 'frame').grid_columnconfigure(i, weight=1)
-        if 1:   #Quit Button
+        if makequit:   #Quit Button
             setattr(self, f'button{iNum}', tk.Button(self.frame, text=f'Quit', width=self.btnWidth, command=self.GUI_quit))
             getattr(self, f'button{iNum}').config(bg='red2', fg=master.clr['appFg'])
             getattr(self, f'button{iNum}').bind("<Escape>", self.GUI_quit)
