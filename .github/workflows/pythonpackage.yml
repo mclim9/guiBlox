@@ -41,5 +41,3 @@ jobs:
         # cd test
         # xvfb-run `which coverage` run -m pytest
         xvfb-run `which coverage` run -m unittest -v test.test_guiblox_import
-        xvfb-run `which coverage` coverage run -a -m unittest -v test.test_project_import
-

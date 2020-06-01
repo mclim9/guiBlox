@@ -13,9 +13,8 @@ import unittest
 class TestGeneral(unittest.TestCase):
     def setUp(self):                                #Run before each test
         from guiblox import theme
-        self.GUI = theme().addColor()                            #Create GUI object
+        self.GUI = theme().addColor()               #Create GUI object
         print("",end="")
-        pass
 
     def tearDown(self):                             #Run after each test
         pass
@@ -36,7 +35,7 @@ class TestGeneral(unittest.TestCase):
 
     def test_entryCol(self):
         from guiblox import entryCol
-        entryDict = {} 
+        entryDict = {}
         entryDict['Label1'] = 'Value1'
         entryDict['Label2'] = 'Value2'
         self.testObj = entryCol(self.GUI, entryDict)
@@ -49,6 +48,5 @@ class TestGeneral(unittest.TestCase):
 ### </Test>
 ###############################################################################
 if __name__ == '__main__':
-    # unittest.main()
     suite = unittest.TestLoader().loadTestsFromTestCase(TestGeneral)
     unittest.TextTestRunner(verbosity=2).run(suite)
