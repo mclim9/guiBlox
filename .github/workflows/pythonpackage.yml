@@ -25,16 +25,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        # sudo apt install -y xvfb x11-utils libxkbcommon-x11-0
-        sudo apt install -y xvfb x11-utils
+        sudo apt install -y xvfb x11-utils libxkbcommon-x11-0
         python -m pip install --upgrade pip wheel pylint
         pip install -r requirements.txt
 
     - name: Lint with pylint
       run: |
-        # C0301 Line too long (107/100) (line-too-long)
-        # C0103 Module name "<>" doesn't conform to snake_case naming style (invalid-name)
-        # C0326 Exactly one space required after comma
         python -m pylint guiblox
 
     - name: Test with pytest
