@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -26,6 +25,8 @@ jobs:
 
     - name: Install dependencies
       run: |
+        # sudo apt install -y xvfb x11-utils libxkbcommon-x11-0
+        sudo apt install -y xvfb x11-utils
         python -m pip install --upgrade pip wheel pylint
         pip install -r requirements.txt
 
@@ -41,8 +42,8 @@ jobs:
         pip install pytest
         pip install coverage
         # sudo systemctl start xvfb
-        # pytest
         # cd test
-        coverage run -m unittest -v test.test_guiblox_import
-        coverage run -a -m unittest -v test.test_project_import
+        # xvfb-run `which coverage` run -m pytest
+        xvfb-run `which coverage` run -m unittest -v test.test_guiblox_import
+        xvfb-run `which coverage` coverage run -a -m unittest -v test.test_project_import
 
