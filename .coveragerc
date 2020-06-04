@@ -8,7 +8,7 @@ source =
     guiBlox/
 
 [report]
-omit = 
+omit =
     */python?.?/*
     */site-packages/*
     */pypy/*
