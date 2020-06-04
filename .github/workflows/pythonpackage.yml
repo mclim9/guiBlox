@@ -28,6 +28,7 @@ jobs:
         sudo apt install -y xvfb x11-utils libxkbcommon-x11-0
         python -m pip install --upgrade pip wheel pylint
         pip install -r requirements.txt
+        pip install pytest coverage coveralls
 
     - name: Lint with pylint
       run: |
@@ -35,9 +36,6 @@ jobs:
 
     - name: Test with pytest
       run: |
-        pip install pytest
-        pip install coverage
         # sudo systemctl start xvfb
         # cd test
-        # xvfb-run `which coverage` run -m pytest
         xvfb-run `which coverage` run -m unittest -v test.test_guiblox_import
