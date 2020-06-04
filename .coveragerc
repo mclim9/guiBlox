@@ -8,11 +8,6 @@ source =
     guiBlox/
 
 [report]
-omit = 
-    */python?.?/*
-    */site-packages/*
-    */pypy/*
-
 # Regexes for lines to exclude from consideration
 exclude_lines =
     pragma: no cover
