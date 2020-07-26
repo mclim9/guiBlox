@@ -6,7 +6,7 @@
 #####################################################################
 ### User Inputs
 #####################################################################
-entryDict = {} 
+entryDict = {}
 entryDict['SMW IP']     = '192.168.1.114'
 entryDict['FSW IP']     = '192.168.1.109'
 entryDict['Freq Start'] = '24e9'
@@ -17,15 +17,13 @@ entryDict['SMW Pwr']    = '0'
 entryDict['Filename']   = 'Output'
 
 #####################################################################
-### OOGUI Import 
+### OOGUI Import
 #####################################################################
-from guiblox            import buttonRow, entryCol, theme, listWindow
-
-### Code specific imports
-from rssd.VST.Common    import VST           #pylint:disable=E0611,E0401
-from rssd.FileIO        import FileIO
 import time
 import os
+from guiblox            import buttonRow, entryCol, theme, listWindow
+from rssd.VST.Common    import VST           #pylint:disable=E0611,E0401
+from rssd.FileIO        import FileIO
 
 #####################################################################
 ### Function Definition
@@ -35,7 +33,7 @@ def IDN(root):
     print(Instr.SMW.query('*IDN?'))
     print(Instr.FSW.query('*IDN?'))
     Instr.jav_Close()
-    
+
 def run(root):
     Instr = VST().jav_Open(root.entryCol.entry0.get(),root.entryCol.entry1.get())  #pylint:disable=E1101
     OFileCSV = FileIO().makeFile(root.entryCol.entry7.get()+'csv')

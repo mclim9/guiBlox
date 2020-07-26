@@ -8,16 +8,14 @@
 #####################################################################
 
 #####################################################################
-### OOGUI Import 
+### OOGUI Import
 #####################################################################
-from guiblox                import buttonRow, entryCol, theme, listWindow
-
-### Code specific imports
+import time
 import tkinter as tk
 from tkinter.filedialog     import askopenfilename
-from   rssd                 import jaVisa
-import time
-import os
+# import os
+from guiblox                import buttonRow, entryCol, theme, listWindow
+# from   rssd                 import jaVisa
 from rssd.iqdata            import IQ
 
 #####################################################################
@@ -34,8 +32,6 @@ def convert(root):
     duration = time.time() - start
     print(f"IQ:{iq.NumberOfSamples} samples in {duration*1e3:2.2f} ms --> {iq.NumberOfSamples/1e6/duration:3.2f} MSamples/s")
 
-    pass
-
 def getFilename(tkEvent):
     fny = askopenfilename()
     tkEvent.widget.delete(0,tk.END)
@@ -46,7 +42,7 @@ def getFilename(tkEvent):
 ### GUI Layout
 #####################################################################
 def main():
-    global root
+    # global root
     root = theme().addColor()
     root.title('Socket Test Program')
     root.resizable(0,0)
@@ -62,12 +58,12 @@ def main():
     root.files.chg2Enum('entry1', ['iq.tar','iqw','wv'])
     root.files.chg2Enum('entry3', ['iq.tar','iqw','wv'])
 
-    root.files.entry0.bind("<Button-1>",getFilename)                                       #pylint: disable=E1101
-    root.files.entry2.bind("<Button-1>",getFilename)                                       #pylint: disable=E1101
-    root.files.entry0.config(width = widdy)                                       #pylint: disable=E1101    
-    root.files.entry1.config(width = widdy-7)                                       #pylint: disable=E1101    
-    root.files.entry2.config(width = widdy)                                       #pylint: disable=E1101    
-    root.files.entry3.config(width = widdy-7)                                       #pylint: disable=E1101    
+    root.files.entry0.bind("<Button-1>",getFilename)                                    #pylint: disable=E1101
+    root.files.entry2.bind("<Button-1>",getFilename)                                    #pylint: disable=E1101
+    root.files.entry0.config(width = widdy)                                             #pylint: disable=E1101
+    root.files.entry1.config(width = widdy-7)                                           #pylint: disable=E1101
+    root.files.entry2.config(width = widdy)                                             #pylint: disable=E1101
+    root.files.entry3.config(width = widdy-7)                                           #pylint: disable=E1101
 
     root.bottWind.listWindow.config(height= 5,width=50)
     root.buttnRow.button0.config(text='Convert'     ,command=lambda: convert(root))     #pylint: disable=E1101

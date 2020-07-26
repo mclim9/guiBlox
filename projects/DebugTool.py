@@ -27,16 +27,14 @@ FSW_SCPI  = """:CONF:NR5G:MEAS EVM
 """
 
 ###############################################################################
-### Code Import 
+### Code Import
 ###############################################################################
-from guiblox                import buttonRow, entryCol, theme, listWindow
-
-### Code specific imports
-from    rssd.yaVISA_socket  import jaVisa
-from    tkinter             import messagebox
 import  datetime
 import  socket
 import  os
+from    guiblox                 import buttonRow, entryCol, theme, listWindow
+from    rssd.yaVISA_socket      import jaVisa
+# from    tkinter               import messagebox
 
 ###############################################################################
 ### Function Definition
@@ -94,12 +92,12 @@ def instr1(root):
     Instr.debug = 0
     Instr.jav_Open(RS.IP1)
     for scpi in RS.SCPI1:
-        if '?' in scpi: 
+        if '?' in scpi:
             rdStr = Instr.query(scpi)
             Output = Output + ',' + rdStr
         else:
             Instr.write(scpi)
-    Output = datetime.datetime.now().strftime("%y%m%d,%H:%M:%S.%f") + Output 
+    Output = datetime.datetime.now().strftime("%y%m%d,%H:%M:%S.%f") + Output
     print(Output)
     f = open(__file__+'.txt','a')
     f.write(Output+'\n')
@@ -113,13 +111,13 @@ def instr2(root):
     Instr.debug = 0
     Instr.jav_Open(RS.IP2)
     for scpi in RS.SCPI2:
-        if '?' in scpi: 
+        if '?' in scpi:
             rdStr = Instr.query(scpi)
             Output = Output + ',' + rdStr
         else:
             Instr.write(scpi)
     f = open(__file__+'.txt','a')
-    Output = datetime.datetime.now().strftime("%y%m%d,%H:%M:%S.%f") + Output 
+    Output = datetime.datetime.now().strftime("%y%m%d,%H:%M:%S.%f") + Output
     print(Output)
     f.write(Output+'\n')
     f.close()
@@ -148,7 +146,7 @@ def SaveSetts(root):
 ### GUI Main
 ###############################################################################
 def main():
-    global root
+    # global root
     root = theme().addColor()
     root.title('Socket Test Program')
     root.resizable(0,0)
