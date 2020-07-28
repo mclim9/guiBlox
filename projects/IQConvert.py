@@ -1,31 +1,23 @@
-#####################################################################
-### Purpose: Object Oriented Python Tkinter example
-### Author : Martin C Lim
-### Date   : 2019.04.01
-### Objects:
-#####################################################################
-### User Inputs
-#####################################################################
-
+"""Convert IQ between IQ.tar, wv, """
+### pylint: disable=bad-whitespace,invalid-name,line-too-long
 #####################################################################
 ### OOGUI Import
 #####################################################################
 import time
 import tkinter as tk
 from tkinter.filedialog     import askopenfilename
-# import os
 from guiblox                import buttonRow, entryCol, theme, listWindow
-# from   rssd                 import jaVisa
 from rssd.iqdata            import IQ
 
 #####################################################################
 ### Function Definition
 #####################################################################
 def convert(root):
+    """Create IQTar-->test2.wv"""
     print('convert')
     iq = IQ()
     ### Read data
-    iq.ReadIqTar(root.files.entry0.get())
+    iq.readIqTar(root.files.entry0.get())
 
     start = time.time()
     iq.writeWv("test2.wv")
@@ -33,6 +25,7 @@ def convert(root):
     print(f"IQ:{iq.NumberOfSamples} samples in {duration*1e3:2.2f} ms --> {iq.NumberOfSamples/1e6/duration:3.2f} MSamples/s")
 
 def getFilename(tkEvent):
+    """Add Files"""
     fny = askopenfilename()
     tkEvent.widget.delete(0,tk.END)
     tkEvent.widget.insert(0,fny)
@@ -42,6 +35,7 @@ def getFilename(tkEvent):
 ### GUI Layout
 #####################################################################
 def main():
+    """main"""
     # global root
     root = theme().addColor()
     root.title('Socket Test Program')

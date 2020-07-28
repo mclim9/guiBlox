@@ -1,7 +1,10 @@
+"""Synchronize settings between FSW/SMW K144 5GNR personality"""
 ###############################################################################
-### Purpose: Object Oriented Python Tkinter example
-### Author : Martin C Lim
-### Date   : 2019.02.01
+### Import
+###############################################################################
+from tkinter.ttk        import Notebook, Frame
+from guiblox            import theme, listWindow
+# pylint: disable=bad-whitespace,invalid-name,line-too-long
 ###############################################################################
 ### User Inputs
 ###############################################################################
@@ -11,24 +14,21 @@ entryDict['Label2']     = 'Data2'
 entryDict['Label3']     = 'Data3'
 
 ###############################################################################
-### Code Import 
+### Code Import
 ###############################################################################
-from guiblox                import buttonRow, entryCol, theme, listWindow
-from tkinter.ttk            import Notebook, Frame
-
-### Code specific imports
 
 ###############################################################################
 ### Function Definition
 ###############################################################################
 def function(root):
-    pass
+    """Function"""
+    print('Hello')
 
 ###############################################################################
 ### GUI Main
 ###############################################################################
 def main():
-    global root
+    """main"""
     root = theme().addColor()
     root.title('Notebook Test Program')
 

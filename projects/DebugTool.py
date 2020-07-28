@@ -1,7 +1,15 @@
+"""SCPI Two instrument Debug Tool """
+# pylint: disable=bad-whitespace,invalid-name,line-too-long
 ###############################################################################
-### Purpose: Object Oriented Python Tkinter example
-### Author : Martin C Lim
-### Date   : 2019.02.01
+### Import
+###############################################################################
+import  datetime
+import  socket
+import  os
+from    guiblox                 import buttonRow, entryCol, theme, listWindow
+from    rssd.yaVISA_socket      import jaVisa
+# from    tkinter               import messagebox
+
 ###############################################################################
 ### User Inputs
 ###############################################################################
@@ -27,35 +35,28 @@ FSW_SCPI  = """:CONF:NR5G:MEAS EVM
 """
 
 ###############################################################################
-### Code Import
-###############################################################################
-import  datetime
-import  socket
-import  os
-from    guiblox                 import buttonRow, entryCol, theme, listWindow
-from    rssd.yaVISA_socket      import jaVisa
-# from    tkinter               import messagebox
-
-###############################################################################
 ### Function Definition
 ###############################################################################
 def clrBottom(root):
+    """Clear Bottom Window"""
     root.bottWind.clear()
     # root.bottWind.writeH('2xLt:IDN        Rt:SystError        2xRt:SystInfo')
 
 def fopen(root):
+    """Open File"""
     os.system('notepad.exe ' + __file__ + '.txt')
 
 def fwrite(root):
+    """Write data to file"""
     RS = gui_reader(root)
-    f = open(__file__+'.txt','a')
+    f = open(__file__+'.txt', 'a')
     f.write(datetime.datetime.now().strftime("%y%m%d-%H:%M:%S.%f")+'\n')        #Date String
     f.write(RS.Output)
     print(f'Text Written to {__file__}')
     f.close()
 
 def gui_reader(root):
-    ### Read values from GUI
+    """Read values from GUI"""
     RS = lambda: None
     RS.IP1             = root.entryCol1.entry0.get()                            #pylint:disable=E1101
     RS.IP2             = root.entryCol2.entry0.get()                            #pylint:disable=E1101
@@ -65,12 +66,14 @@ def gui_reader(root):
     return RS
 
 def IDN(tkEvent):
+    """System ID (*IDN?) of ipAddy"""
     ipAddy = tkEvent.widget.get()
     print(f'IDN       : {ipAddy}')
     instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
     instr.jav_Close()
 
 def SYSTERR(tkEvent):
+    """System Error (SYST:ERR?) of ipAddy"""
     ipAddy = tkEvent.widget.get()
     print(f'SYS Err   : {ipAddy}')
     instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
@@ -79,6 +82,7 @@ def SYSTERR(tkEvent):
     instr.jav_Close()
 
 def SYSTNFO(tkEvent):
+    """System Info (SYST:DFPR?) of ipAddy"""
     ipAddy = tkEvent.widget.get()
     print(f'SYS INFO  : {ipAddy}')
     instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
@@ -86,6 +90,7 @@ def SYSTNFO(tkEvent):
     instr.jav_Close()
 
 def instr1(root):
+    """Send SCPI cmds to instr1"""
     Output = ""
     RS = gui_reader(root)
     Instr = jaVisa()
@@ -105,6 +110,7 @@ def instr1(root):
     Instr.jav_Close()
 
 def instr2(root):
+    """Send SCPI cmds to instr2"""
     Output = ""
     RS = gui_reader(root)
     Instr = jaVisa()
@@ -125,6 +131,7 @@ def instr2(root):
     Instr.jav_Close()
 
 def MyIp():
+    """Print IP of host computer"""
     hostname = socket.gethostname()
     IPAddr   = socket.gethostbyname(hostname)
     print(f'{hostname}:{IPAddr}')
@@ -132,6 +139,7 @@ def MyIp():
     print(WinOut)
 
 def SaveSetts(root):
+    """Save Settings"""
     RS = gui_reader(root)
     Instr = jaVisa()
     Instr.debug = 0
@@ -146,6 +154,7 @@ def SaveSetts(root):
 ### GUI Main
 ###############################################################################
 def main():
+    """Main Function"""
     # global root
     root = theme().addColor()
     root.title('Socket Test Program')

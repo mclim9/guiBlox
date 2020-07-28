@@ -1,15 +1,7 @@
+"""Display Rohde & Schwarz Instrument Options"""
+# pylint: disable=bad-whitespace,invalid-name,line-too-long
 ###############################################################################
-### Purpose: Object Oriented Python Tkinter example
-### Author : Martin C Lim
-### Date   : 2019.02.01
-###############################################################################
-### User Inputs
-###############################################################################
-SCPIWidth = 50
-SCPIHeigh = 5
-
-##############################################################################
-### Code Import
+### Import
 ###############################################################################
 import  datetime
 import  os
@@ -19,16 +11,25 @@ from    rssd.yaVISA_socket  import jaVisa
 # from    tkinter             import messagebox
 
 ###############################################################################
+### User Inputs
+###############################################################################
+SCPIWidth = 50
+SCPIHeigh = 5
+
+###############################################################################
 ### Function Definition
 ###############################################################################
 def clrBottom(root):
+    """Clear Bottom Window"""
     root.bottWind.clear()
     # root.bottWind.writeH('2xLt:IDN        Rt:SystError        2xRt:SystInfo')
 
 def fopen():
+    """Open File"""
     os.system('notepad.exe ' + __file__ + '.txt')
 
 def fwrite(root):
+    """Write data to file"""
     RS = gui_reader(root)
     f = open(__file__+'.txt', 'a')
     f.write(datetime.datetime.now().strftime("%y%m%d-%H:%M:%S.%f")+'\n')        #Date String
@@ -37,7 +38,7 @@ def fwrite(root):
     f.close()
 
 def gui_reader(root):
-    ### Read values from GUI
+    """Read values from GUI"""
     RS = lambda: None
     RS.IP1             = root.entryCol1.entry0.get()                            #pylint:disable=E1101
     RS.SCPI1           = root.SCPI1.getlist()
@@ -45,12 +46,14 @@ def gui_reader(root):
     return RS
 
 def IDN(tkEvent):
+    """System ID (*IDN?) of ipAddy"""
     ipAddy = tkEvent.widget.get()
     print(f'IDN       : {ipAddy}')
     instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
     instr.jav_Close()
 
 def SYSTERR(tkEvent):
+    """System Error (SYST:ERR?) of ipAddy"""
     ipAddy = tkEvent.widget.get()
     print(f'SYS Err   : {ipAddy}')
     instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
@@ -59,6 +62,7 @@ def SYSTERR(tkEvent):
     instr.jav_Close()
 
 def SYSTNFO(tkEvent):
+    """System Info (SYST:DFPR?) of ipAddy"""
     ipAddy = tkEvent.widget.get()
     print(f'SYS INFO  : {ipAddy}')
     instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
@@ -66,6 +70,7 @@ def SYSTNFO(tkEvent):
     instr.jav_Close()
 
 def instr1(root):
+    """Send SCPI cmds to instr1"""
     Output = ""
     RS = gui_reader(root)
     Instr = jaVisa()
@@ -88,6 +93,7 @@ def instr1(root):
 ### GUI Main
 ###############################################################################
 def main():
+    """main"""
     root = theme().addColor()
     root.title('Rohde & Schwarz Options')
     root.resizable(0, 0)

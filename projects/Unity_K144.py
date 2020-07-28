@@ -1,14 +1,23 @@
-########################################################################
-# Title: Rohde & Schwarz Simple ATE example GUI
-# Description:
-#
-########################################################################
+"""Synchronize settings between FSW/SMW K144 5GNR personality"""
+# pylint: disable=bad-whitespace,invalid-name,line-too-long,unused-argument
+
+###############################################################################
+### Code Import
+###############################################################################
+# from datetime                   import datetime
+import tkinter                  as     Tk
+import tkinter.filedialog       as     tkFileDialog
+from guiblox                    import buttonRow, entryCol, theme, listWindow
+from rssd.VST.NR5G_K144         import VST          #pylint:disable=E0611,E0401
+END = Tk.END
+
+###############################################################################
 # User Input Settings
-########################################################################
+###############################################################################
 ColxWid     = 60 -4
 BotWindWid  = ColxWid + 15
 
-entryDict = {} 
+entryDict = {}
 entryDict['SMW IP']         = '192.168.1.114'
 entryDict['FSW IP']         = '192.168.1.109'
 entryDict['Frequency']      = '28e9'
@@ -22,23 +31,9 @@ entryDict['RB Offset']      = '0'
 entryDict['Modulation']     = 'QPSK'
 entryDict['CC']             = '1'
 
-
-########################################################################
-### Code Import
-########################################################################
-from datetime                   import datetime
-import tkinter                  as     Tk
-import tkinter.filedialog       as     tkFileDialog
-from guiblox                    import buttonRow, entryCol, theme, listWindow
-END = Tk.END
-
-#Code specific libraries
-import copy
-from rssd.VST.NR5G_K144         import VST          #pylint:disable=E0611,E0401
-
-########################################################################
+###############################################################################
 ### GUIBlox Create items
-########################################################################
+###############################################################################
 GUI = theme().addColor()                            #Create GUI object
 GUI.title('Rohde&Schwarz FSW SMW 5GNR Utility')     #GUI Title
 topWind  = listWindow(GUI)
@@ -46,18 +41,19 @@ botWind  = listWindow(GUI)
 buttnRow = buttonRow(GUI, 6)                        #pylint: disable=unused-variable
 entryCol = entryCol(GUI, entryDict)
 
-########################################################################
+###############################################################################
 ### GUI Functions
-########################################################################
+###############################################################################
 class GUIData(object):
+    """Class to store data"""
     def __init__(self):
         self.List1 = ['- Utility does not validate settings against 3GPP 5G',
-                    '- Click *IDN? to validate IP Addresses',
-                    '- Frequency & SMW Power labels are clickable',
-                    '']
+                      '- Click *IDN? to validate IP Addresses',
+                      '- Frequency & SMW Power labels are clickable',
+                      '']
 
 def gui_reader():
-    ### Read values from GUI
+    """Read values from GUI"""
     SMW_IP          = entryCol.entry0.get()                 #pylint:disable=E1101
     FSW_IP          = entryCol.entry1.get()                 #pylint:disable=E1101
 
@@ -77,14 +73,14 @@ def gui_reader():
     return NR5G
 
 def btn1():
-    ### *IDN Query ###
+    """*IDN Query"""
     NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())  #pylint:disable=E1101
     print(NR5G.SMW.query('*IDN?'))
     print(NR5G.FSW.query('*IDN?'))
     NR5G.jav_Close()
 
 def btn2():
-    ### Display Max RB
+    """Display Max RB"""
     topWind.writeN('--------------------------    --------------------------')
     topWind.writeN('|u[<6GHz ]010 020 050 100|    |u[>6GHz ]050 100 200 400|')
     topWind.writeN('|-+------+---+---+---+---|    |-+------+---+---+---+---|')
@@ -104,14 +100,14 @@ def btn2():
     # NR5G.jav_Close()
 
 def btn3():
-    ### Get EVM
+    """ Get EVM """
     NR5G = gui_reader()
     NR5G.FSW.Set_InitImm()
     topWind.writeN(f'EVM: {NR5G.FSW.Get_5GNR_EVM():.4f}')
     NR5G.FSW.jav_Close()
-    
+
 def btn4():
-    ### Set 5GNR Parameters
+    """Set 5GNR Parameters"""
     NR5G = gui_reader()
 
     print("SMW Creating Waveform.")
@@ -122,10 +118,10 @@ def btn4():
     NR5G.jav_Close()
 
 def btn5():
-    ### Read 5GNR Parameters ###
+    """Read 5GNR Parameters"""
     NR5G = gui_reader()
 
-    K144Data = NR5G.Get_5GNR_All() 
+    K144Data = NR5G.Get_5GNR_All()
     topWind.writeN(" ")
     botWind.writeH('Get_5GNR Differences                 ')
     for i in range(len(K144Data[0])):
@@ -151,15 +147,15 @@ def btn5():
                 K144Data[2][i] = K144Data[2][i].replace('OS','')
             if K144Data[1][i] != K144Data[2][i]:
                 botWind.writeH(f'{K144Data[0][i]}\t{K144Data[1][i]}\t{K144Data[2][i]}')
-        except: 
+        except:
             pass
     NR5G.jav_Close()
 
 def btn6():
-    ## filename: 5GNR_UL_BW_SubCar_Mod
+    """filename: 5GNR_UL_BW_SubCar_Mod"""
     NR5G = gui_reader()
-    dir = NR5G.SMW.Get_5GNR_Direction()
-    filename = f'5GNR_{dir}_{NR5G.SMW.Get_5GNR_ChannelBW()}MHz_{NR5G.SMW.Get_5GNR_BWP_SubSpace()}kHz_{NR5G.SMW.Get_5GNR_BWP_Ch_Modulation()}'
+    udl = NR5G.SMW.Get_5GNR_Direction()
+    filename = f'5GNR_{udl}_{NR5G.SMW.Get_5GNR_ChannelBW()}MHz_{NR5G.SMW.Get_5GNR_BWP_SubSpace()}kHz_{NR5G.SMW.Get_5GNR_BWP_Ch_Modulation()}'
     topWind.writeN(f'Writing: {filename}')
     NR5G.FSW.Set_5GNR_savesetting(filename)
     for i in range(1):
@@ -167,14 +163,16 @@ def btn6():
     topWind.writeN('Writing: DONE!')
 
 def click3(tkEvent):
+    """Set FSW/SMW frequency"""
     #print(tkEvent)
     NR5G = gui_reader()
     NR5G.SMW.Set_Freq(NR5G.Freq)
     NR5G.FSW.Set_Freq(NR5G.Freq)
     NR5G.jav_Close()
     botWind.writeN('SMW/FSW Freq: %d Hz'%NR5G.Freq)
-    
+
 def click4(tkEvent):
+    """Set SMW RF Pwr"""
     #print(tkEvent)
     NR5G = gui_reader()
     NR5G.SMW.Set_RFPwr(int(NR5G.SWM_Out))
@@ -182,6 +180,7 @@ def click4(tkEvent):
     botWind.writeN('SMW RMS Pwr : %d dBm'%int(NR5G.SWM_Out))
 
 def click14(tkEvent):
+    """Set RB """
     #print(tkEvent)
     if 0:
         NR5G = gui_reader()
@@ -199,18 +198,21 @@ def click14(tkEvent):
     botWind.writeN('SMW:Scheduling-->PxSCH-->RB')
 
 def click15(tkEvent):
+    """Set RB Offset"""
     botWind.writeN('FSW:Signal Description-->RadioFrame-->BWP Config-->RB Offset')
     botWind.writeN('SMW:User/BWP-->UL BWP-->RB Offset')
-    pass
+
 
 def clearTopWind(tkEvent):
+    """Clear Top Window"""
     topWind.clear()
     topWind.writeH("===Please Click Buttons Below===")
-    RSVar = GUIData() 
+    RSVar = GUIData()
     for item in RSVar.List1:
         topWind.writeN(item)
 
 def dataLoad():
+    """Read setting file --> GUI"""
     try:
         try:          #Python3
             f = open(__file__ + ".csv","rt")
@@ -230,6 +232,7 @@ def dataLoad():
         botWind.writeN("DataLoad: Default")
 
 def dataSave():
+    """Save GUIT --> setting file """
     # NR5G = gui_reader()
     try: #Python3
         f = open(__file__ + ".csv",'wt', encoding='utf-8')
@@ -243,23 +246,23 @@ def dataSave():
     print("DataSave: File Saved")
 
 def menu_Exit():
-    global GUI
-    dataSave() 
+    """Exit Program"""
+    # global GUI
+    dataSave()
     GUI.quit()
     GUI.destroy()
     # print("Program End")
 
 def menu_Open():
+    """Open File and print name"""
     asdf = tkFileDialog.askopenfilename()
     print(asdf)
 
-def menu_Save():
-    dataSave()
-
-########################################################################
+###############################################################################
 ### Main Code
-########################################################################
+###############################################################################
 def main():
+    """"main"""
     dataLoad()
 
     try:
@@ -315,7 +318,7 @@ def main():
     botWind.writeH("Output Window")
 
     ########################################################################
-    ### GUIBlox Draw Widgets w/ Grid 
+    ### GUIBlox Draw Widgets w/ Grid
     ########################################################################
     entryCol.frame.grid(row=0,column=0,sticky="nsew")
     topWind.frame.grid(row=0,column=1,sticky='e')
@@ -326,12 +329,12 @@ def main():
     # Define menu
     ########################################################################
     if 0:
-        menu = Tk.Menu(GUI)                                     #create GUI dropdown 
+        menu = Tk.Menu(GUI)                                     #create GUI dropdown
         GUI.config(menu=menu)                                   #define GUI's menu
 
         fileMenu = Tk.Menu(menu)                                #create dropdown menu
         fileMenu.add_command(label="Open",command=menu_Open)
-        fileMenu.add_command(label="Save",command=menu_Save)
+        fileMenu.add_command(label="Save",command=dataSave)
         fileMenu.add_separator()
         fileMenu.add_command(label="Exit",command=menu_Exit)
         menu.add_cascade(label="File",menu=fileMenu)            #add dropdown menu

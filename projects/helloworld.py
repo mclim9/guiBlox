@@ -1,5 +1,7 @@
+"""Used to measure minimum pyinstaller size"""
+
 def main():
-    print("Hello World")
+    """Print Hello World"""
     print('Hello World')
 
 if __name__ == '__main__':

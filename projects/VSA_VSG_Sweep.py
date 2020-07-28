@@ -2,7 +2,7 @@
 ### Purpose: Object Oriented Python Tkinter example
 ### Author : Martin C Lim
 ### Date   : 2019.02.01
-### Objects:
+# pylint: disable=bad-whitespace,invalid-name,line-too-long
 #####################################################################
 ### User Inputs
 #####################################################################
