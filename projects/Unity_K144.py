@@ -1,8 +1,8 @@
 """Synchronize settings between FSW/SMW K144 5GNR personality"""
-# pylint: disable=bad-whitespace,invalid-name,line-too-long,unused-argument
-
 ###############################################################################
 ### Code Import
+### pylint: disable=bad-whitespace,invalid-name,line-too-long,unused-argument
+### pylint: disable=bare-except,no-member
 ###############################################################################
 # from datetime                   import datetime
 import tkinter                  as     Tk
@@ -54,27 +54,27 @@ class GUIData(object):
 
 def gui_reader():
     """Read values from GUI"""
-    SMW_IP          = entryCol.entry0.get()                 #pylint:disable=E1101
-    FSW_IP          = entryCol.entry1.get()                 #pylint:disable=E1101
+    SMW_IP          = entryCol.entry0.get()
+    FSW_IP          = entryCol.entry1.get()
 
     ### Set 5GNR Parameters
-    NR5G            = VST().jav_Open(SMW_IP,FSW_IP)         #pylint:disable=E1101
-    NR5G.Freq       = float(entryCol.entry2.get())          #pylint:disable=E1101
-    NR5G.SWM_Out    = float(entryCol.entry3.get())          #pylint:disable=E1101
-    NR5G.NR_Dir     = entryCol.entry4_enum.get()            #pylint:disable=E1101
-    NR5G.NR_Deploy  = entryCol.entry5_enum.get()            #pylint:disable=E1101
-    NR5G.NR_ChBW    = int(entryCol.entry6_enum.get())       #pylint:disable=E1101
-    NR5G.NR_SubSp   = int(entryCol.entry7_enum.get())       #pylint:disable=E1101
-    NR5G.NR_RB      = int(entryCol.entry8.get())            #pylint:disable=E1101
-    NR5G.NR_RBO     = int(entryCol.entry9.get())            #pylint:disable=E1101
-    NR5G.NR_Mod     = entryCol.entry10_enum.get()           #pylint:disable=E1101
-    NR5G.NR_CC      = int(entryCol.entry11.get())           #pylint:disable=E1101
+    NR5G            = VST().jav_Open(SMW_IP,FSW_IP)
+    NR5G.Freq       = float(entryCol.entry2.get())
+    NR5G.SWM_Out    = float(entryCol.entry3.get())
+    NR5G.NR_Dir     = entryCol.entry4_enum.get()
+    NR5G.NR_Deploy  = entryCol.entry5_enum.get()
+    NR5G.NR_ChBW    = int(entryCol.entry6_enum.get())
+    NR5G.NR_SubSp   = int(entryCol.entry7_enum.get())
+    NR5G.NR_RB      = int(entryCol.entry8.get())
+    NR5G.NR_RBO     = int(entryCol.entry9.get())
+    NR5G.NR_Mod     = entryCol.entry10_enum.get()
+    NR5G.NR_CC      = int(entryCol.entry11.get())
     NR5G.NR_TF      = 'OFF'
     return NR5G
 
 def btn1():
     """*IDN Query"""
-    NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())  #pylint:disable=E1101
+    NR5G = VST().jav_Open(entryCol.entry0.get(),entryCol.entry1.get())
     print(NR5G.SMW.query('*IDN?'))
     print(NR5G.FSW.query('*IDN?'))
     NR5G.jav_Close()
@@ -181,17 +181,15 @@ def click4(tkEvent):
 
 def click14(tkEvent):
     """Set RB """
-    #print(tkEvent)
-    if 0:
-        NR5G = gui_reader()
-        if 0:
-            NR5G.SMW.Set_5GNR_Direction(NR5G.NR_Dir)
-            NR5G.SMW.Set_5GNR_BWP_ResBlock(NR5G.NR_RB)
-            NR5G.SMW.Set_5GNR_BWP_Ch_ResBlock(NR5G.NR_RB)
-            NR5G.FSW.Set_5GNR_Direction(NR5G.NR_Dir)
-            NR5G.FSW.Set_5GNR_BWP_ResBlock(NR5G.NR_RB)
-            NR5G.FSW.Set_5GNR_BWP_Ch_ResBlock(NR5G.NR_RB)
-        NR5G.jav_Close()
+    # print(tkEvent)
+    # NR5G = gui_reader()
+    # NR5G.SMW.Set_5GNR_Direction(NR5G.NR_Dir)
+    # NR5G.SMW.Set_5GNR_BWP_ResBlock(NR5G.NR_RB)
+    # NR5G.SMW.Set_5GNR_BWP_Ch_ResBlock(NR5G.NR_RB)
+    # NR5G.FSW.Set_5GNR_Direction(NR5G.NR_Dir)
+    # NR5G.FSW.Set_5GNR_BWP_ResBlock(NR5G.NR_RB)
+    # NR5G.FSW.Set_5GNR_BWP_Ch_ResBlock(NR5G.NR_RB)
+    # NR5G.jav_Close()
     botWind.writeN('FSW:Signal Description-->RadioFrame-->BWP Config-->RB')
     botWind.writeN('FSW:Signal Description-->RadioFrame-->PxSCH Config-->RB')
     botWind.writeN('SMW:User/BWP-->UL BWP-->RB')
@@ -238,10 +236,10 @@ def dataSave():
         f = open(__file__ + ".csv",'wt', encoding='utf-8')
     except:
         f = open(__file__ + ".csv",'wb')
-    f.write('%s,'%(entryCol.entry0.get()))          #pylint:disable=E1101
-    f.write('%s,'%(entryCol.entry1.get()))          #pylint:disable=E1101
-    f.write('%s,'%(entryCol.entry2.get()))          #pylint:disable=E1101
-    f.write('%s,'%(entryCol.entry3.get()))          #pylint:disable=E1101
+    f.write('%s,'%(entryCol.entry0.get()))
+    f.write('%s,'%(entryCol.entry1.get()))
+    f.write('%s,'%(entryCol.entry2.get()))
+    f.write('%s,'%(entryCol.entry3.get()))
     f.close()
     print("DataSave: File Saved")
 
@@ -275,40 +273,40 @@ def main():
     except:
         pass
 
-    ########################################################################
+    ###########################################################################
     ### GUIBlox modify: EntryCol
-    ########################################################################
+    ###########################################################################
     entryCol.chg2Enum('entry4', ['UL','DL'])
     entryCol.chg2Enum('entry5', ["LOW", "MIDD", "HIGH"])
     entryCol.chg2Enum('entry6', ["20","50","100","200","400"])
     entryCol.chg2Enum('entry7', ["15", "30", "60", "120"])
     entryCol.chg2Enum('entry10', ["QPSK", "QAM16", "QAM64", "QAM256"])
 
-    entryCol.entry4_enum.set("UL")              # default value pylint:disable=E1101
-    entryCol.entry5_enum.set("HIGH")            # default value pylint:disable=E1101
-    entryCol.entry6_enum.set("100")             # default value pylint:disable=E1101
-    entryCol.entry7_enum.set("60")              # default value pylint:disable=E1101
-    entryCol.entry10_enum.set("QPSK")           # default value pylint:disable=E1101
+    entryCol.entry4_enum.set("UL")              # default value
+    entryCol.entry5_enum.set("HIGH")            # default value
+    entryCol.entry6_enum.set("100")             # default value
+    entryCol.entry7_enum.set("60")              # default value
+    entryCol.entry10_enum.set("QPSK")           # default value
 
-    entryCol.label2.bind("<Button-1>",click3)                   #Frequency      #pylint:disable=E1101
-    entryCol.label3.bind("<Button-1>",click4)                   #Power, RMS     #pylint:disable=E1101
-    entryCol.label8.bind("<Button-1>",click14)                  #RB             #pylint:disable=E1101
-    entryCol.label9.bind("<Button-1>",click15)                  #RB Offset      #pylint:disable=E1101
+    entryCol.label2.bind("<Button-1>",click3)                   #Frequency
+    entryCol.label3.bind("<Button-1>",click4)                   #Power, RMS
+    entryCol.label8.bind("<Button-1>",click14)                  #RB
+    entryCol.label9.bind("<Button-1>",click15)                  #RB Offset
 
-    ########################################################################
+    ###########################################################################
     ### GUIBlox modify: Button Row
-    ########################################################################
-    buttnRow.button0.config(text='*IDN?'   ,command=btn1)       #pylint: disable=E1101
-    buttnRow.button1.config(text='Max RB'  ,command=btn2)       #pylint: disable=E1101
-    buttnRow.button2.config(text='Get EVM' ,command=btn3)       #pylint: disable=E1101
-    buttnRow.button3.config(text='Set_5GNR',command=btn4)       #pylint: disable=E1101
-    buttnRow.button4.config(text='Get_5GNR',command=btn5)       #pylint: disable=E1101
-    buttnRow.button5.config(text='Save WV' ,command=btn6)       #pylint: disable=E1101
-    buttnRow.button6.config(command=menu_Exit)                  #pylint: disable=E1101
+    ###########################################################################
+    buttnRow.button0.config(text='*IDN?'   ,command=btn1)
+    buttnRow.button1.config(text='Max RB'  ,command=btn2)
+    buttnRow.button2.config(text='Get EVM' ,command=btn3)
+    buttnRow.button3.config(text='Set_5GNR',command=btn4)
+    buttnRow.button4.config(text='Get_5GNR',command=btn5)
+    buttnRow.button5.config(text='Save WV' ,command=btn6)
+    buttnRow.button6.config(command=menu_Exit)
 
-    ########################################################################
+    ###########################################################################
     ### GUIBlox modify: Output Text Boxes
-    ########################################################################
+    ###########################################################################
     topWind.listWindow.config(width=ColxWid, height=25, tabs=('5c', '7c', '9c'))
     topWind.listWindow.bind("<Button-3>",clearTopWind)
     clearTopWind(None)
@@ -317,35 +315,34 @@ def main():
     botWind.stdOut()
     botWind.writeH("Output Window")
 
-    ########################################################################
+    ###########################################################################
     ### GUIBlox Draw Widgets w/ Grid
-    ########################################################################
+    ###########################################################################
     entryCol.frame.grid(row=0,column=0,sticky="nsew")
     topWind.frame.grid(row=0,column=1,sticky='e')
     botWind.frame.grid(row=1,column=0,columnspan=2,sticky='e')
     buttnRow.frame.grid(row=4,column=0,columnspan=2,sticky="nsew")
 
-    ########################################################################
+    ###########################################################################
     # Define menu
-    ########################################################################
-    if 0:
-        menu = Tk.Menu(GUI)                                     #create GUI dropdown
-        GUI.config(menu=menu)                                   #define GUI's menu
+    ###########################################################################
+    # menu = Tk.Menu(GUI)                                       #create GUI dropdown
+    # GUI.config(menu=menu)                                     #define GUI's menu
 
-        fileMenu = Tk.Menu(menu)                                #create dropdown menu
-        fileMenu.add_command(label="Open",command=menu_Open)
-        fileMenu.add_command(label="Save",command=dataSave)
-        fileMenu.add_separator()
-        fileMenu.add_command(label="Exit",command=menu_Exit)
-        menu.add_cascade(label="File",menu=fileMenu)            #add dropdown menu
+    # fileMenu = Tk.Menu(menu)                                  #create dropdown menu
+    # fileMenu.add_command(label="Open",command=menu_Open)
+    # fileMenu.add_command(label="Save",command=dataSave)
+    # fileMenu.add_separator()
+    # fileMenu.add_command(label="Exit",command=menu_Exit)
+    # menu.add_cascade(label="File",menu=fileMenu)              #add dropdown menu
 
-        editMenu = Tk.Menu(menu)                                #create dropdown menu
-        editMenu.add_command(label="Edit",command=menu_Open)
-        menu.add_cascade(label="Edit",menu=editMenu)            #add dropdown menu
+    # editMenu = Tk.Menu(menu)                                  #create dropdown menu
+    # editMenu.add_command(label="Edit",command=menu_Open)
+    # menu.add_cascade(label="Edit",menu=editMenu)              #add dropdown menu
 
-    ########################################################################
+    ###########################################################################
     # GUIBLox Start Program
-    ########################################################################
+    ###########################################################################
     GUI.mainloop()                                              #Display window
 
 if __name__ == '__main__':
