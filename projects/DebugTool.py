@@ -42,7 +42,7 @@ def clrBottom(root):
     root.bottWind.clear()
     # root.bottWind.writeH('2xLt:IDN        Rt:SystError        2xRt:SystInfo')
 
-def fopen(root):
+def fopen():
     """Open File"""
     os.system('notepad.exe ' + __file__ + '.txt')
 
@@ -193,7 +193,7 @@ def main():
     root.btnRowTop.button1.config(text='Query'      ,command=lambda: instr2(root))  #pylint: disable=E1101
 
     root.btnRowBot.button0.config(text='write File',command=lambda: fwrite(root))   #pylint: disable=E1101
-    root.btnRowBot.button1.config(text='open File' ,command=lambda: fopen(root))    #pylint: disable=E1101
+    root.btnRowBot.button1.config(text='open File' ,command=fopen)    #pylint: disable=E1101
     root.btnRowBot.button2.config(text='clear'     ,command=lambda: clrBottom(root))#pylint: disable=E1101
     root.btnRowBot.button3.config(text='MyIP'      ,command=MyIp)                   #pylint: disable=E1101
     root.btnRowBot.button4.config(text='FSWSave'   ,command=lambda: SaveSetts(root))#pylint: disable=E1101
