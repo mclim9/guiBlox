@@ -23,14 +23,20 @@ class TestGeneral(unittest.TestCase):
 ###############################################################################
 ### <Test>
 ###############################################################################
+    def test_aaa_guiBlox(self):
+        import projects.aaa_guiblox
+
+    def test_aaa_guiBlox_jaVISA_socket(self):
+        import projects.aaa_guiblox_jaVISA_socket
+
+    def test_aaa_print(self):
+        import projects.aaa_print
+
+    def test_aaa_tkinter(self):
+        import projects.aaa_tkinter
+
     def test_DebugTool(self):
         import projects.DebugTool
-
-    def test_helloworld(self):
-        import projects.helloworld
-
-    def test_helloworld_tkinter(self):
-        import projects.helloworld_tkinter
 
     def test_IQConvert(self):
         import projects.IQConvert
