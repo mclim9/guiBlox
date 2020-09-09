@@ -7,7 +7,7 @@ import  datetime
 import  os
 
 from guiblox                import buttonRow, entryCol, theme, listWindow
-from    rssd.yaVISA_socket  import jaVisa
+from rssd.yaVISA_socket     import jaVisa
 # from    tkinter             import messagebox
 
 ###############################################################################
