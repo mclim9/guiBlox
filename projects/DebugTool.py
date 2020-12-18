@@ -1,5 +1,5 @@
 """SCPI Two instrument Debug Tool """
-# pylint: disable=bad-whitespace,invalid-name,line-too-long
+#pylint:disable=bad-whitespace, invalid-name, line-too-long
 ###############################################################################
 ### Import
 ###############################################################################
@@ -78,7 +78,7 @@ def SYSTERR(tkEvent):
     print(f'SYS Err   : {ipAddy}')
     instr = jaVisa().jav_Open(ipAddy)                                           #pylint:disable=E1101
     instr.jav_ClrErr()
-    print(f'SYS Err   : No Error')
+    print('SYS Err   : No Error')
     instr.jav_Close()
 
 def SYSTNFO(tkEvent):
